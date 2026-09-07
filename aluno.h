@@ -17,6 +17,8 @@ typedef struct
     char CPF[12]; // formato: XXXXXXXXXXX\0
 } Aluno;
 
+void cadastrarAluno(Aluno *aluno); // cadastra o aluno
+
 TipoData DiaMesAno(int num); // ler um inteiro no formato ddmmaaaa e separa os numeros em dia, mes, ano
 
 void lerNome(char nome[], int tamanho); // ler o nome do aluno
