@@ -17,7 +17,7 @@ int main() {
         meuProfessor.dataNascimento.ano);
   //printf("matricula do professor: %d", matricula);  
     return 0;
-}
+}//apenas para visualização.
 
 void cadastrarProfessor(PROFESSOR *professor){
     printf("digite seu nome: ");
