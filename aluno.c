@@ -3,13 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
-    Aluno aluno;
-    cadastrarAluno(&aluno);
-    printf("\nCadastro concluido!\n");
-    imprimirDadosAluno(aluno);
-}
-
 void imprimirDadosAluno(Aluno a){
     printf("\n-----Dados do Aluno-----\n");
     printf("Nome: %s\n",a.nome);
@@ -32,12 +25,12 @@ void imprimirDadosAluno(Aluno a){
 
 }
 
-void cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
+int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
 
     // cópia das variaveis do aluno, para leiura e validação antes de atribuir ao aluno
     //int matricula;
     char nome[100];
-    char sexo[3];
+    char sexo[10];
     char cpf[12];
     TipoData data;
 
@@ -49,14 +42,13 @@ void cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
 
     // LER SEXO
     do{
-        printf("\n--------Sexo-------\n");
-        printf("M - Masculino\n ");
-        printf("F - Feminino\n ");
-        printf("O - Outro\n ");
+        printf("\n-----Sexo-------\n");
+        printf(" M - Masculino\n");
+        printf(" F - Feminino\n");
+        printf(" O - Outro\n");
 
         printf("\nSelecione seu sexo: ");
-
-        ler_str(sexo, sizeof(sexo));  //ler a opção selecionada + \n + \0
+        ler_str(sexo, sizeof(sexo));  //ler a opção selecionada + \n + \0 , uma forma de evitar problemas de buffer de teclado
         invalido = validar_sexo(sexo); // validação ainda em desenvolvimento. verificar se uma das opções foi selecionada, case insensitive
 
         switch(invalido){
@@ -97,6 +89,22 @@ void cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
         }
     }while(invalido); // repete a leitura enquanto for invalido
 
+    char salvar[10];
+    do{
+        printf("Salvar cadastro? (s/n): ");
+        ler_str(salvar, sizeof(salvar));
+
+        if(salvar[0] == 's' || salvar[0] == 'S'){
+            break;
+        }
+        else if(salvar[0] == 'n' || salvar[0] == 'N'){
+            printf("\n/// Cadastro cancelado. voltando... ///\n");
+            return 0;
+        }
+        else   
+            printf("Digite uma opção valida.\n");
+    }while(1);
+       
     //ATRIBUIÇÃO - se os dados forem validos, atribuir ao aluno
     
     strcpy(pAluno->nome, nome);
@@ -104,6 +112,9 @@ void cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
     pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
     pAluno->dataNascimento = data;
     // falta gerar matricula;
+    printf("\n/// Cadastro Salvo! ///\n\n");
+    
+    return 1; //sucesso
     
 }
 
@@ -124,7 +135,7 @@ void lerData(TipoData *pData){ // recebe o endereço da variavel do tipo Data
 
     // lê um numero no formato ddmmaaaa
     scanf("%d",&num);  
-
+    getchar(); // limpar buffer 😭
     // chama função para separar em dia, mes e ano
     *pData = DiaMesAno(num);
 }
