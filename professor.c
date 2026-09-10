@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "professor.h"
+#include "funcoes.h"
 
 int cadastrarProfessor(PROFESSOR *professor){
     char nome[100];
@@ -23,13 +24,13 @@ int cadastrarProfessor(PROFESSOR *professor){
     ler_str(CPF,sizeof(CPF));// recebe cpf.
 
     printf("digite sua data de nascimento (ddmmaaaa):  ");
-    lerData(dataNascimento);// recebe data de nascimento.
+    lerData(&dataNascimento);// recebe data de nascimento.
 
     //ATRIBUIÇÃO
     strcpy(professor->nome,nome);
     strcpy(professor->CPF,CPF);//  0    1    2
     professor->sexo = sexo[0];// |'M'|'\n'|'\0'|
-    professor.dataNascimento = data;
+    professor->dataNascimento = dataNascimento;
     //gerar matricula
 
     return 1; //sucesso

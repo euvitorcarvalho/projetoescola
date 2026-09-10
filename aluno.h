@@ -1,12 +1,8 @@
 #ifndef ALUNO_H
 #define ALUNO_H
+#include "funcoes.h"
 
-typedef struct
-{
-   int dia;
-   int mes;
-   int ano;
-}TipoData; // representa uma data com dia, mês e ano
+
 
 typedef struct 
 {

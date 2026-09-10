@@ -1,5 +1,5 @@
 #include "validacao.h"
-
+#include "funcoes.h"
 #include <stdio.h>
 #define TRUE 1
 #define FALSE 0
@@ -49,4 +49,12 @@ int validar_cpf(char cpf[]) {
     return 5;  // Erro 5: Falha no 2º dígito
 
   return 0;  // Sucesso
+}
+
+int validar_data(TipoData data){
+  return 0;
+}
+
+int validar_sexo(char sexo[]){
+  return 0;
 }

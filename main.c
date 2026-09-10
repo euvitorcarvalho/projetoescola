@@ -2,7 +2,7 @@
 #include "aluno.h"
 #include "professor.h"
 #include "disciplina.h"
-#include "validacoes.h"
+#include "validacao.h"
 
 #define QNT_ALUNOS 3
 #define QNT_PROFESSORES 3

@@ -3,6 +3,7 @@
 
 #ifndef PROFESSOR_H
 #define PROFESSOR_H
+#include "funcoes.h"
 
 // Declarações de funções, structs e constantes
 
