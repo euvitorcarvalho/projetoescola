@@ -1,43 +1,39 @@
 //int main pra rodar e testar.
 // definições de funções.
 #include <stdio.h>
+#include <string.h>
 #include "professor.h"
 
-int main() {
-    //ainda não gera a matricula.
-    PROFESSOR meuProfessor;
-    cadastrarProfessor(&meuProfessor);
-    printf("Cadastro concluido!\n");
-    printf("nome do professor: %s", meuProfessor.nome);
-    printf("sexo do professor: %c\n", meuProfessor.sexo);
-    printf("cpf do professor: %s\n", meuProfessor.CPF);
-    printf("data de nascimento do professor: %02d/%02d/%04d\n",
-        meuProfessor.dataNascimento.dia,
-        meuProfessor.dataNascimento.mes,
-        meuProfessor.dataNascimento.ano);
-  //printf("matricula do professor: %d", matricula);  
-    return 0;
-}//apenas para visualização.
+int cadastrarProfessor(PROFESSOR *professor){
+    char nome[100];
+    char sexo[10];
+    int matricula;
+    char CPF[12];
+    TipoData dataNascimento;
 
-void cadastrarProfessor(PROFESSOR *professor){
     printf("digite seu nome: ");
-    fgets(professor->nome, sizeof(professor->nome), stdin);// recebe o nome.
+    ler_str(nome,sizeof(nome));// recebe o nome.
 
     printf("informe seu sexo:\n");
     printf("F - feminino\n");
     printf("M - masculino\n");
-    scanf(" %c", &professor->sexo);// recebe o sexo.
-    getchar();// ???
-    printf("digite seu cpf:");
-    fgets(professor->CPF,sizeof(professor->CPF),stdin);// recebe cpf.
+    ler_str(sexo, sizeof(sexo)); //recebe o sexo
+
+    printf("digite seu cpf: ");
+    ler_str(CPF,sizeof(CPF));// recebe cpf.
 
     printf("digite sua data de nascimento (ddmmaaaa):  ");
-    int data;
-    scanf("%d",&data);// recebe data de nascimento.
+    lerData(dataNascimento);// recebe data de nascimento.
 
-    professor->dataNascimento.dia = data / 1000000;// divide pela quantidade de caracteres para separar dia, mês e ano.
-    professor->dataNascimento.mes = (data % 1000000) / 10000;
-    professor->dataNascimento.ano = data % 10000;
+    //ATRIBUIÇÃO
+    strcpy(professor->nome,nome);
+    strcpy(professor->CPF,CPF);//  0    1    2
+    professor->sexo = sexo[0];// |'M'|'\n'|'\0'|
+    professor.dataNascimento = data;
+    //gerar matricula
+
+    return 1; //sucesso
+
 }   //função cadastrar
 
 
