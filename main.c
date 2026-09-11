@@ -10,6 +10,8 @@
 
 int main(){
     Aluno listaAlunos[QNT_ALUNOS];
+    PROFESSOR listaProfessores[QNT_PROFESSORES];
+
     int qnt_alunos_cadastrados = 0;
 
     //PROFESSOR listaProfessores[QNT_PROFESSORES];
@@ -18,7 +20,11 @@ int main(){
     // Disciplina listaDisciplinas[QTD_DISCIPLINAS];
     int qnt_disciplinas_cadastradas = 0;
 
+    char op[10];
+    int continuar = 1;
+    int sucesso;
     int menu = -1;
+
     do{
         printf("\n       PROJETO ESCOLA\n");
 
@@ -36,10 +42,8 @@ int main(){
 
         switch(menu){
             case 1 :
+                continuar = 1;
                 printf("\n-----CADASTRO DE ALUNOS------\n\n");
-                char op[10];
-                int continuar = 1;
-                int sucesso;
                 do{
                     if(qnt_alunos_cadastrados >= QNT_ALUNOS){
                         printf("\n/// Erro - Máximo de alunos cadastrados atingido. Voltando... ///\n");
@@ -72,7 +76,39 @@ int main(){
                 break;
             case 2:
                 printf("\n---CADASTRO DE PROFESSORES---\n");
+                continuar = 1;
+                
+                do{
+                    if(qnt_professores_cadastrados >= QNT_PROFESSORES){
+                        printf("\n/// Erro - Máximo de professores cadastrados atingido. Voltando... ///\n");
+                        break;
+                    }
+
+                    printf("/// Cadastrando Professor - %d. ///\n\n",qnt_professores_cadastrados+1);
+                    sucesso = cadastrarProfessor(&listaProfessores[qnt_professores_cadastrados]);
+
+                    if(sucesso)
+                        qnt_professores_cadastrados++;
+
+                    while(1){
+                        printf("\nDeseja cadastrar mais um professor? (s/n): ");
+                        ler_str(op, sizeof(op));
+
+                        if(op[0] == 'S' || op[0] == 's'){
+                            continuar = 1;
+                            break;
+                        }
+                        else if(op[0] == 'N' || op[0] == 'n'){
+                            continuar = 0;
+                            break;
+                        }
+                        else
+                            printf("\nErro - Digite uma opção valida.\n");
+                    }
+
+                }while(continuar == 1);
                 break;
+
             case 3:
                 printf("\n---CADASTRO DE DISCIPLINAS---\n");
                 break;

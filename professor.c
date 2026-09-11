@@ -9,7 +9,7 @@ int cadastrarProfessor(PROFESSOR *professor){
     char nome[100];
     char sexo[10];
     int matricula;
-    char CPF[12];
+    char CPF[15];
     TipoData dataNascimento;
 
     printf("digite seu nome: ");
@@ -35,8 +35,7 @@ int cadastrarProfessor(PROFESSOR *professor){
 
     return 1; //sucesso
 
-}   //função cadastrar
-
+}   
 
     //função atualizar
 

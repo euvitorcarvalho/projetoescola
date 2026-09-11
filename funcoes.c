@@ -1,5 +1,6 @@
 #include "funcoes.h"
 #include <stdio.h>
+#include <string.h>
 
 void ler_str(char str[], int tamanho){ // recebe uma string e o tamanho dela
 

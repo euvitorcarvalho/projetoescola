@@ -32,7 +32,7 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
     //int matricula;
     char nome[100];
     char sexo[10];
-    char cpf[12];
+    char cpf[15];
     TipoData data;
 
     int invalido; // verificador de validade
@@ -67,12 +67,12 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
 
         switch(invalido){
             case 0 : break;
-            case 1 : printf("Erro 1 - Cpf digitado não contem 11 dígitos.\n"); break;
-            case 2 : printf("Erro 2 - Digite apenas numeros, sem pontos ou traços.\n"); break;
-            case 3 : printf("Erro 3 - Cpf digitado possui todos os caracteres iguais.\n"); break;
-            case 4 : printf("Erro 4 - Erro no 1º dígito verificador.\n"); break;
-            case 5 : printf("Erro 5 - Erro no 2º dígito verificador\n."); break;
-            default: printf("Erro desconhecido - falha na leitura.\n"); break;
+            case 1 : printf("\n/// Erro 1 - Cpf digitado não contem 11 dígitos. ///\n\n"); break;
+            case 2 : printf("\n/// Erro 2 - Digite apenas numeros, sem pontos ou traços. ///\n\n"); break;
+            case 3 : printf("\n/// Erro 3 - Cpf digitado possui todos os caracteres iguais. ///\n\n"); break;
+            case 4 : printf("\n/// Erro 4 - Erro no 1º dígito verificador. ///\n\n"); break;
+            case 5 : printf("\n/// Erro 5 - Erro no 2º dígito verificador. ///\n\n"); break;
+            default: printf("\n/// Erro desconhecido - falha na leitura. ///\n\n"); break;
         }
 
     }while (invalido);
@@ -118,5 +118,3 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
     return 1; //sucesso
     
 }
-
-
