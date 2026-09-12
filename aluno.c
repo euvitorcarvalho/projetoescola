@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void imprimirDadosAluno(Aluno a){
+void imprimirDadosAluno(ALUNO a){
     printf("\n--------Dados do Aluno--------\n");
 
     printf("Nome: %s\n",a.nome);
@@ -27,7 +27,7 @@ void imprimirDadosAluno(Aluno a){
 
 }
 
-int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
+int cadastrarAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
 
     // cópia das variaveis do aluno, para leiura e validação antes de atribuir ao aluno
     char nome[100];
@@ -119,7 +119,7 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
     
 }
 
-void listarAlunos(Aluno lista[], int qnt){
+void listarAlunos(ALUNO lista[], int qnt){
     if(qnt > 0){
         printf("\n\n///          LISTAR ALUNOS         ///\n\n");
 

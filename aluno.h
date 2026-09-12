@@ -2,8 +2,6 @@
 #define ALUNO_H
 #include "funcoes.h"
 
-
-
 typedef struct 
 {
     int matricula; // número de matrícula do aluno
@@ -12,18 +10,12 @@ typedef struct
     char CPF[12]; // formato: XXXXXXXXXXX\0
     TipoData dataNascimento; // data com dia, mês e ano separados
 
-} Aluno;
+} ALUNO;
 
-void imprimirDadosAluno(Aluno a); // exibe informações do aluno
+void imprimirDadosAluno(ALUNO a); // exibe informações do aluno
 
-void listarAlunos(Aluno lista[], int qnt);
+void listarAlunos(ALUNO lista[], int qnt);
 
-int cadastrarAluno(Aluno *aluno); // cadastra o aluno
-
-TipoData DiaMesAno(int num); // ler um inteiro no formato ddmmaaaa e separa os numeros em dia, mes, ano
-
-void ler_str(char nome[], int tamanho); // ler uma string com o fgets e tira o \n que ele considera
-
-void lerData(TipoData *pData); // recebe o ponteiro da data e lê a data 
+int cadastrarAluno(ALUNO *aluno); // cadastra o aluno
 
 #endif
