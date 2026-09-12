@@ -96,7 +96,16 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
         ler_str(salvar, sizeof(salvar));
 
         if(salvar[0] == 's' || salvar[0] == 'S'){
-            break;
+            
+            //ATRIBUIÇÃO - se os dados forem validos, atribuir ao aluno
+    
+            strcpy(pAluno->nome, nome);
+            strcpy(pAluno->CPF, cpf);//                                                   0    1    2    
+            pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
+            pAluno->dataNascimento = data;
+            printf("\n/// Cadastro Salvo! ///\n\n");
+    
+            return 1; //sucesso
         }
         else if(salvar[0] == 'n' || salvar[0] == 'N'){
             printf("\n/// Cadastro cancelado. voltando... ///\n");
@@ -106,15 +115,7 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
             printf("Digite uma opção valida.\n");
     }while(1);
        
-    //ATRIBUIÇÃO - se os dados forem validos, atribuir ao aluno
     
-    strcpy(pAluno->nome, nome);
-    strcpy(pAluno->CPF, cpf);//                                                   0    1    2    
-    pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
-    pAluno->dataNascimento = data;
-    printf("\n/// Cadastro Salvo! ///\n\n");
-    
-    return 1; //sucesso
     
 }
 

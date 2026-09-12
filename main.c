@@ -10,7 +10,7 @@
 
 void MenuInicio();
 void MenuListas();
-void MenuListasAlunos();
+void MenuListasFiltros();
 
 int main(){
     Aluno listaAlunos[QNT_ALUNOS];
@@ -36,8 +36,9 @@ int main(){
         scanf("%d",&menu);
         getchar(); // limpar buffer 😭
 
-        int listas = -1;
-        int listas_alunos = -1;
+        int listagem = -1;
+        int listagem_alunos = -1;
+        int listagem_professores = -1;
 
         switch(menu){
             case 1 :
@@ -122,20 +123,22 @@ int main(){
                     MenuListas();
                     
                     printf("\nEscolha uma opção: ");
-                    scanf("%d",&listas);
+                    scanf("%d",&listagem);
                     getchar();
 
-                    switch (listas)
+                    switch (listagem)
                     {
                         case 1 :
                             do{
-                                MenuListasAlunos();
+                                printf("\n\n///   LISTAR ALUNOS   ///\n\n");
+
+                                MenuListasFiltros();
 
                                 printf("\nEscolha uma opção: ");
-                                scanf("%d",&listas_alunos);
+                                scanf("%d",&listagem_alunos);
                                 getchar();
 
-                                switch (listas_alunos)
+                                switch (listagem_alunos)
                                 {
                                     case 1:
                                         //Ordenar por matricula (Ordem padrão)
@@ -156,7 +159,7 @@ int main(){
 
                                     case 0:
                                         printf("\n///  VOLTAR  ///\n");
-                                        listas_alunos = 0;
+                                        listagem_alunos = 0;
                                     break;
 
                                     default:
@@ -164,10 +167,46 @@ int main(){
                                     break;
                                 }
                                 
-                            }while(listas_alunos != 0);
+                            }while(listagem_alunos != 0);
                             break;
                         case 2 :
-                            printf("\n\n///   LISTAR PROFESSORES   ///\n\n");
+                            do{
+                                printf("\n\n///   LISTAR PROFESSORES   ///\n\n");
+                                MenuListasFiltros();
+
+                                printf("\nEscolha uma opção: ");
+                                scanf("%d",&listagem_professores);
+                                getchar();
+
+                                switch (listagem_professores)
+                                {
+                                    case 1:
+                                        //Ordenar por matricula (Ordem padrão)
+                                        listarProfessores(listaProfessores, qnt_professores_cadastrados);
+                                    break;
+
+                                    case 2:
+                                        //Ordenar por Nome
+                                    break;
+
+                                    case 3:
+                                        //Ordenar por Data de nascimento
+                                    break;
+
+                                    case 4:
+                                        //filtrar por sexo
+                                    break;
+
+                                    case 0:
+                                        printf("\n///  VOLTAR  ///\n");
+                                        listagem_professores = 0;
+                                    break;
+
+                                    default:
+                                        printf("\n///  Erro - escolha uma opção valida  ///\n");
+                                    break;
+                                }
+                            }while(listagem_professores != 0);
                             break;
                         case 3 :
                             printf("\n\n///   LISTAR DISCIPLINAS   ///\n\n");
@@ -180,14 +219,14 @@ int main(){
                             break;
                         case 0 :
                             printf("\n///  VOLTAR  ///\n");
-                            listas = 0;
+                            listagem = 0;
                             break;
                         default:
                             printf("\n///  Erro - escolha uma opção valida  ///\n");
                             break;
                     }
 
-                }while(listas != 0);
+                }while(listagem != 0);
                 break;
             case 0:
                 printf("\n\n/////   PROGRAMA ENCERRADO   //////\n\n");
@@ -206,7 +245,7 @@ void MenuInicio(){
     printf("| 1 - Cadastrar Aluno                    |\n");
     printf("| 2 - Cadastrar Professor                |\n");
     printf("| 3 - Cadastrar Disciplina               |\n");
-    printf("| 4 - Ver Listas                         |\n");
+    printf("| 4 - Ver Relatórios                         |\n");
     printf("| 0 - Sair                               |\n");
     printf("|________________________________________|\n");
 
@@ -225,7 +264,7 @@ void MenuListas(){
     printf("|________________________________________|\n");
 }
 
-void MenuListasAlunos(){
+void MenuListasFiltros(){
     printf("\n__________________ FILTROS __________________\n\n");
     printf("| 1 - Ordenar por matricula              |\n");
     printf("| 2 - Ordenar por nome                   |\n");

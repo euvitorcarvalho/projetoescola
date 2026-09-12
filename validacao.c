@@ -68,6 +68,5 @@ int validar_sexo(char sexo[]){
     sexo[0] = 'O';
     return 0;
   }
-  else
-  return 1;
+  else return 1; // inválido
 }

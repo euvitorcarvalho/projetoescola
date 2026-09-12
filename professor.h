@@ -17,5 +17,6 @@ typedef struct {
 }PROFESSOR;
 
 int cadastrarProfessor(PROFESSOR *professor); // Recebe um endereço de um struct PROFESSOR para preencher os dados do professor
-
+void listarProfessores(PROFESSOR lista[],int qnt);
+void imprimirDadosProfessor(PROFESSOR p);
 #endif
