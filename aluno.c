@@ -5,14 +5,17 @@
 #include <string.h>
 
 void imprimirDadosAluno(Aluno a){
-    printf("\n-----Dados do Aluno-----\n");
+    printf("\n--------Dados do Aluno--------\n");
+
     printf("Nome: %s\n",a.nome);
 
-    if (a.sexo == 'M' || a.sexo == 'm')
+    printf("Matricula: %06d\n",a.matricula);
+
+    if (a.sexo == 'M')
         printf("Sexo: Masculino\n");
-    else if(a.sexo == 'F' || a.sexo == 'f')
+    else if(a.sexo == 'F')
         printf("Sexo: Feminino\n");
-    else if(a.sexo == 'O' || a.sexo == 'o')
+    else if(a.sexo == 'O')
         printf("Sexo: Outro\n");
     
     printf("Data de nascimento: %02d/%02d/%04d\n",
@@ -22,14 +25,11 @@ void imprimirDadosAluno(Aluno a){
 
     printf("CPF: %s\n",a.CPF); //exibir cpf formatado em breve
 
-    printf("Matricula: %d\n",a.matricula);
-
 }
 
 int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
 
     // cópia das variaveis do aluno, para leiura e validação antes de atribuir ao aluno
-    //int matricula;
     char nome[100];
     char sexo[10];
     char cpf[15];
@@ -112,9 +112,21 @@ int cadastrarAluno(Aluno *pAluno){ // recebe o endereço do aluno para alterar
     strcpy(pAluno->CPF, cpf);//                                                   0    1    2    
     pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
     pAluno->dataNascimento = data;
-    // falta gerar matricula;
     printf("\n/// Cadastro Salvo! ///\n\n");
     
     return 1; //sucesso
     
+}
+
+void listarAlunos(Aluno lista[], int qnt){
+    if(qnt > 0){
+        printf("\n\n///          LISTAR ALUNOS         ///\n\n");
+
+        for(int i = 0; i < qnt; i++){
+            imprimirDadosAluno(lista[i]);
+        }
+    }
+    else{
+        printf("\n///  Não há alunos cadastrados   ///\n");
+    }
 }

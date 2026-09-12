@@ -16,6 +16,8 @@ typedef struct
 
 void imprimirDadosAluno(Aluno a); // exibe informações do aluno
 
+void listarAlunos(Aluno lista[], int qnt);
+
 int cadastrarAluno(Aluno *aluno); // cadastra o aluno
 
 TipoData DiaMesAno(int num); // ler um inteiro no formato ddmmaaaa e separa os numeros em dia, mes, ano

@@ -56,5 +56,18 @@ int validar_data(TipoData data){
 }
 
 int validar_sexo(char sexo[]){
-  return 0;
+  if (sexo[0] == 'M' || sexo[0] == 'm'){
+    sexo[0] = 'M';
+    return 0;
+  }
+  else if (sexo[0] == 'F' || sexo[0] == 'f'){
+    sexo[0] = 'F';
+    return 0;
+  }
+  else if (sexo[0] == 'O' || sexo[0] == 'o'){
+    sexo[0] = 'O';
+    return 0;
+  }
+  else
+  return 1;
 }
