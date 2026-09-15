@@ -6,6 +6,65 @@
 #include "funcoes.h"
 #include "validacao.h"
 
+
+// CONTROLA O CADASTRO, ATUALIZAÇÃO E EXCLUSAO DE PROFESSORES
+void CRUD_Professores(PROFESSOR lista_professores[], int *qnt_professores_cadastrados, int *matriculaProfessor){
+    int menu;
+    Menu_CRUD();
+    printf("Escolha uma opção: ");
+    scanf("%d",&menu);
+
+    switch(menu){
+        case 1: ExecutarCadastroProfessores(lista_professores, &qnt_professores_cadastrados, &matriculaProfessor);break;
+        case 2: /*ExecutarAtualizarProfessor(parametros)*/; break;
+        case 3: /*ExecutarExcluirProfessor(parametros)*/ ;break;
+        case 0: return;
+    }
+
+}
+
+// GERENCIA O CADASTRO DE PROFESSORES
+void ExecutarCadastroProfessores(PROFESSOR lista_professores[], int *qnt_professores_cadastrados, int *matriculaProfessor){
+    printf("\n///  CADASTRO DE PROFESSORES  ///\n\n");
+    int continuar = 1;
+    int sucesso;
+    char op[10];
+
+    do{
+        if(*qnt_professores_cadastrados >= QNT_PROFESSORES){
+            printf("\n/// Máximo de professores cadastrados atingido. Voltando... ///\n");
+            break;
+        }
+
+        printf("/// Cadastrando Professor - %d. ///\n\n",*qnt_professores_cadastrados+1);
+
+        sucesso = cadastrarProfessor(&lista_professores[*qnt_professores_cadastrados]);
+
+        if(sucesso){
+            (*matriculaProfessor)++;
+            lista_professores[*qnt_professores_cadastrados].matricula = *matriculaProfessor;
+            (*qnt_professores_cadastrados)++;
+        }
+        while(*qnt_professores_cadastrados < QNT_PROFESSORES){
+            printf("\nDeseja cadastrar mais um professor? (s/n): ");
+            ler_str(op, sizeof(op));
+
+            if(op[0] == 'S' || op[0] == 's'){
+                continuar = 1;
+                break;
+            }
+            else if(op[0] == 'N' || op[0] == 'n'){
+                continuar = 0;
+                break;
+            }
+            else
+                printf("\n///  Erro - Digite uma opção valida.  ///\n");
+        }
+
+    }while(continuar == 1);
+}
+
+//CADASTRA UM PROFESSOR
 int cadastrarProfessor(PROFESSOR *professor){
     char nome[100];
     char sexo[10];
@@ -75,13 +134,16 @@ int cadastrarProfessor(PROFESSOR *professor){
 
 }   
 
-void listarProfessores(PROFESSOR lista[], int qnt){// função listar
+//LISTA OS PROFESSORES POR MATRICULA
+void listarProfessoresMatricula(PROFESSOR lista[], int qnt){// função listar
     printf("\n\n///          LISTAR PROFESSORES         ///\n\n");
 
     for(int i = 0; i < qnt; i++){
         imprimirDadosProfessor(lista[i]);
     }
 }
+
+//EXIBE OS DADOS DO PROFESSOR
 void imprimirDadosProfessor(PROFESSOR p){
      printf("\n--------Dados do Professor--------\n");
 
@@ -104,6 +166,48 @@ void imprimirDadosProfessor(PROFESSOR p){
     printf("CPF: %s\n",p.CPF); //exibir cpf formatado em breve
 }
 
+//EXIBE OPÇÕES DE LISTAGEM DOS PROFESSORES
+void RelatorioProfessores(PROFESSOR lista_professores[], int qnt_professores_cadastrados){
+
+    int listagem_professores = -1;
+
+    do{
+        printf("\n\n///   LISTAR PROFESSORES   ///\n\n");
+        MenuListasFiltros();
+
+        printf("\nEscolha uma opção: ");
+        scanf("%d",&listagem_professores);
+        getchar();
+
+        switch (listagem_professores)
+        {
+            case 1:
+                //Ordenar por matricula (Ordem padrão)
+                listarProfessoresMatricula(lista_professores, qnt_professores_cadastrados);
+                break;
+
+            case 2:
+                //Ordenar por Nome
+                break;
+
+            case 3:
+                //Ordenar por Data de nascimento
+                break;
+
+            case 4:
+                //filtrar por sexo
+                break;
+
+            case 0:
+                printf("\n///  VOLTAR  ///\n");
+                break;
+
+            default:
+                printf("\n///  Erro - escolha uma opção valida  ///\n");
+                break;
+        }
+    }while(listagem_professores != 0);
+}
 
     //função atualizar
 

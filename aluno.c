@@ -1,32 +1,101 @@
+#include <stdio.h>
+#include <string.h>
 #include "aluno.h"
 #include "validacao.h"
 #include "funcoes.h"
-#include <stdio.h>
-#include <string.h>
 
-void imprimirDadosAluno(ALUNO a){
-    printf("\n--------Dados do Aluno--------\n");
 
-    printf("Nome: %s\n",a.nome);
+// CONTROLA O CADASTRO, ATUALIZAÇÃO E EXCLUSAO DE ALUNOS
+void CRUD_Alunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, int *matriculaAluno){
+    int menu;
+    Menu_CRUD();
+    printf("Escolha uma opção: ");
+    scanf("%d",&menu);
+    getchar();
 
-    printf("Matricula: %06d\n",a.matricula);
-
-    if (a.sexo == 'M')
-        printf("Sexo: Masculino\n");
-    else if(a.sexo == 'F')
-        printf("Sexo: Feminino\n");
-    else if(a.sexo == 'O')
-        printf("Sexo: Outro\n");
-    
-    printf("Data de nascimento: %02d/%02d/%04d\n",
-        a.dataNascimento.dia,
-        a.dataNascimento.mes,
-        a.dataNascimento.ano);
-
-    printf("CPF: %s\n",a.CPF); //exibir cpf formatado em breve
+    switch(menu){
+        case 1: ExecutarCadastroAlunos(lista_alunos, qnt_alunos_cadastrados, matriculaAluno); break;
+        case 2: ExecutarAtualizarAluno(lista_alunos, *qnt_alunos_cadastrados); break;
+        case 3: /*ExecutarExcluirAluno()*/; break;
+        case 0: return;
+    }
 
 }
 
+//GERENCIA O CADASTRO DE ALUNOS
+void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, int *matriculaAluno) {
+    int continuar = 1;
+    int sucesso;
+    char op[10];
+
+    printf("\n///  CADASTRO DE ALUNOS  ///\n\n");
+    do {
+        if (*qnt_alunos_cadastrados >= QNT_ALUNOS) {
+            printf("\n/// Máximo de alunos cadastrados atingido. Voltando... ///\n");
+            break;
+        }
+
+        printf("/// Cadastrando aluno - %d. ///\n\n", *qnt_alunos_cadastrados + 1);
+        
+        // Passamos a posição atual do vetor de structs
+        sucesso = cadastrarAluno(&lista_alunos[*qnt_alunos_cadastrados]);
+
+        if (sucesso) {
+            (*matriculaAluno)++;
+            lista_alunos[*qnt_alunos_cadastrados].matricula = *matriculaAluno;
+            (*qnt_alunos_cadastrados)++;
+        }
+        
+        while (*qnt_alunos_cadastrados < QNT_ALUNOS) {
+            printf("\nDeseja cadastrar mais um aluno? (s/n): ");
+            ler_str(op, sizeof(op));
+
+            if (op[0] == 'S' || op[0] == 's') {
+                continuar = 1;
+                break;
+            }
+            else if (op[0] == 'N' || op[0] == 'n') {
+                continuar = 0;
+                break;
+            }
+            else {
+                printf("\n///  Erro - Digite uma opção valida.  ///\n");
+            }
+        }
+
+    } while (continuar == 1);
+}
+
+//ATUALIZAR DADOS DO ALUNO
+int ExecutarAtualizarAluno(ALUNO lista[], int qnt){
+    int matricula;
+    int sucesso;
+    int indice;
+
+    if(qnt > 0){
+        listarAlunosMatricula(lista, qnt);
+        printf("\n\n///  ATUALIZAR CADASTRO  ///\n\n");
+
+        printf("Digite a matricula do aluno: ");
+        scanf(" %d",&matricula);
+        getchar();
+
+        indice = matricula - 1;
+        sucesso = cadastrarAluno(&lista[indice]);
+
+        if(sucesso){ 
+            printf("\n\n///  Dados atualizados com sucesso!  ///\n\n");
+            return 1;
+        }
+        else return 0;
+    }
+    else {
+        printf("\n\n/// Não há alunos cadastrados! ///\n\n");
+        return 0;
+    }   
+}
+
+//CADASTRA O ALUNO
 int cadastrarAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
 
     // cópia das variaveis do aluno, para leiura e validação antes de atribuir ao aluno
@@ -114,12 +183,34 @@ int cadastrarAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
         else   
             printf("Digite uma opção valida.\n");
     }while(1);
-       
-    
-    
 }
 
-void listarAlunos(ALUNO lista[], int qnt){
+//EXIBE DADOS DO ALUNO
+void imprimirDadosAluno(ALUNO a){
+    printf("\n--------Dados do Aluno--------\n");
+
+    printf("Nome: %s\n",a.nome);
+
+    printf("Matricula: %06d\n",a.matricula);
+
+    if (a.sexo == 'M')
+        printf("Sexo: Masculino\n");
+    else if(a.sexo == 'F')
+        printf("Sexo: Feminino\n");
+    else if(a.sexo == 'O')
+        printf("Sexo: Outro\n");
+    
+    printf("Data de nascimento: %02d/%02d/%04d\n",
+        a.dataNascimento.dia,
+        a.dataNascimento.mes,
+        a.dataNascimento.ano);
+
+    printf("CPF: %s\n",a.CPF); //exibir cpf formatado em breve
+
+}
+
+//LISTA ALUNOS POR MATRICULA
+void listarAlunosMatricula(ALUNO lista[], int qnt){
     if(qnt > 0){
         printf("\n\n///          LISTAR ALUNOS         ///\n\n");
 
@@ -130,4 +221,51 @@ void listarAlunos(ALUNO lista[], int qnt){
     else{
         printf("\n///  Não há alunos cadastrados   ///\n");
     }
+}
+
+//EXIBE OPÇÕES DE LISTAR ALUNOS
+void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
+
+    int listagem_alunos = -1;
+
+    do{
+        printf("\n\n///           LISTAR ALUNOS         ///\n\n");
+
+
+        MenuListasFiltros();
+
+        printf("\nEscolha uma opção: ");
+        scanf("%d",&listagem_alunos);
+        getchar();
+
+        switch (listagem_alunos)
+        {
+            case 1:
+                //Ordenar por matricula (Ordem padrão)
+                listarAlunosMatricula(lista_alunos, qnt_alunos_cadastrados);
+                break;
+
+            case 2:
+                //Ordenar por Nome
+                break;
+
+            case 3:
+                //Ordenar por Data de nascimento
+                break;
+
+            case 4:
+                //filtrar por sexo
+                break;
+
+            case 0:
+                printf("\n///  VOLTAR  ///\n");
+                listagem_alunos = 0;
+                break;
+
+            default:
+                printf("\n///  Erro - escolha uma opção valida  ///\n");
+                break;
+        }
+        
+    }while(listagem_alunos != 0);
 }
