@@ -12,10 +12,10 @@ void MenuInicio(){
     printf("\n\n///          PROJETO ESCOLA         ///\n\n");
 
     printf("__________________ MENU __________________\n\n");
-    printf("| 1 - Cadastrar Aluno                    |\n");
-    printf("| 2 - Cadastrar Professor                |\n");
-    printf("| 3 - Cadastrar Disciplina               |\n");
-    printf("| 4 - Ver Relatórios                     |\n");
+    printf("| 1 - Alunos                             |\n");
+    printf("| 2 - Professores                        |\n");
+    printf("| 3 - Disciplinas                        |\n");
+    printf("| 4 - Ver Relatorios                     |\n");
     printf("| 0 - Sair                               |\n");
     printf("|________________________________________|\n");
 
@@ -42,7 +42,7 @@ void MenuListas(){
     printf("| 2 - Listar Professores                 |\n");
     printf("| 3 - Listar Disciplinas                 |\n");
     printf("| 4 - Lista de pessoas (professor/aluno) |\n"); //a partir de uma string de busca. O usuário informa no mínimo três letras e deve ser listado todas as pessoas que contem essas três letras no nome.
-    printf("| 5 - Aniversariantes do mês             |\n"); 
+    printf("| 5 - Aniversariantes do mes             |\n"); 
     printf("| 0 - Voltar                             |\n");
     printf("|________________________________________|\n");
 }
@@ -70,7 +70,7 @@ void ler_str(char str[], int tamanho){ // recebe uma string e o tamanho dela
 }
 
 
-void lerData(TipoData *pData){ // recebe o endereço da variavel do tipo Data
+void lerData(DATA *pData){ // recebe o endereço da variavel do tipo Data
     int num;
 
     // lê um numero no formato ddmmaaaa
@@ -80,8 +80,8 @@ void lerData(TipoData *pData){ // recebe o endereço da variavel do tipo Data
     *pData = DiaMesAno(num);
 }
 
-TipoData DiaMesAno(int num){ // recebe um numero inteiro no formato ddmmaaaa e retorna uma data separada em dia, mes e ano
-    TipoData data;
+DATA DiaMesAno(int num){ // recebe um numero inteiro no formato ddmmaaaa e retorna uma data separada em dia, mes e ano
+    DATA data;
 
     data.dia = num / 1000000;
     data.mes = (num % 1000000) / 10000;
@@ -94,10 +94,10 @@ TipoData DiaMesAno(int num){ // recebe um numero inteiro no formato ddmmaaaa e r
 void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, int qnt_alunos_cadastrados, int qnt_professores_cadastrados){
 
     int listagem = -1;
-   
+
     do{
         MenuListas();
-        
+
         printf("\nEscolha uma opção: ");
         scanf("%d",&listagem);
         getchar();
@@ -121,7 +121,6 @@ void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, in
                 break;
             case 0 :
                 printf("\n///  VOLTAR  ///\n");
-                listagem = 0;
                 break;
             default:
                 printf("\n///  Erro - escolha uma opção valida  ///\n");
