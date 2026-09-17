@@ -13,7 +13,7 @@ typedef struct PROFESSOR{
     char sexo;
     int matricula;
     char CPF[12];
-    TipoData dataNascimento;
+    DATA dataNascimento;
 
 }PROFESSOR;
 

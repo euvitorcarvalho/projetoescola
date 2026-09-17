@@ -51,11 +51,14 @@ int validar_cpf(char cpf[]) {
   return 0;  // Sucesso
 }
 
-int validar_data(TipoData data){
+int validar_data(DATA data){
   return 0;
 }
 
 int validar_sexo(char sexo[]){
+  if(sexo[1] != '\0'){
+    return 1;
+  }
   if (sexo[0] == 'M' || sexo[0] == 'm'){
     sexo[0] = 'M';
     return 0;

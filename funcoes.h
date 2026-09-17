@@ -5,12 +5,12 @@
 typedef struct ALUNO ALUNO;
 typedef struct PROFESSOR PROFESSOR;
 
-typedef struct TipoData
+typedef struct DATA
 {
    int dia;
    int mes;
    int ano;
-} TipoData; // representa uma data com dia, mês e ano
+} DATA; // representa uma data com dia, mês e ano
 
 
 void MenuInicio();
@@ -33,8 +33,8 @@ void RelatorioAniversariantes(); // Em desenvolvimento
 
 void ler_str(char str[], int tamanho);
 
-void lerData(TipoData *pData);
+void lerData(DATA *pData);
 
-TipoData DiaMesAno(int num);
+DATA DiaMesAno(int num);
 
 #endif

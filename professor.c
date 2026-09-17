@@ -13,9 +13,10 @@ void CRUD_Professores(PROFESSOR lista_professores[], int *qnt_professores_cadast
     Menu_CRUD();
     printf("Escolha uma opção: ");
     scanf("%d",&menu);
+    getchar();
 
     switch(menu){
-        case 1: ExecutarCadastroProfessores(lista_professores, &qnt_professores_cadastrados, &matriculaProfessor);break;
+        case 1: ExecutarCadastroProfessores(lista_professores, qnt_professores_cadastrados, matriculaProfessor);break;
         case 2: /*ExecutarAtualizarProfessor(parametros)*/; break;
         case 3: /*ExecutarExcluirProfessor(parametros)*/ ;break;
         case 0: return;
@@ -69,7 +70,7 @@ int cadastrarProfessor(PROFESSOR *professor){
     char nome[100];
     char sexo[10];
     char CPF[15];
-    TipoData dataNascimento;
+    DATA dataNascimento;
     int invalido = 0;
 
     printf("digite seu nome: ");
