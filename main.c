@@ -49,18 +49,56 @@ int main(){
 
     //Atribuição inicial a todos os alunos
     for(int i = qnt_alunos_cadastrados; i < QNT_ALUNOS; i++){
-        strcpy(lista_alunos[i].nome,"sem nome");
+        strcpy(lista_alunos[i].nome,"Sem nome");
         strcpy(lista_alunos[i].CPF,"00000000000");
         
         lista_alunos[i].sexo = 'O';
-        lista_alunos[i].dataNascimento = DiaMesAno(00000000);
+        lista_alunos[i].dataNascimento = DiaMesAno(0);
         lista_alunos[i].preenchido = 0;
         lista_alunos[i].matricula = 0;
     }
 
     PROFESSOR lista_professores[QNT_PROFESSORES];
-    int qnt_professores_cadastrados = 0;
-    int matriculaProfessor = 0;
+
+    //Professor 1
+    strcpy(lista_professores[0].nome,"Daiane");
+    strcpy(lista_professores[0].CPF,"01234567890");
+    lista_professores[0].sexo = 'F';
+    lista_professores[0].dataNascimento = DiaMesAno(2051989);;
+    lista_professores[0].preenchido = 1;
+    lista_professores[0].matricula = 1;
+
+    //Professor 2
+    strcpy(lista_professores[1].nome,"Yulo");
+    strcpy(lista_professores[1].CPF,"01234567890");
+    lista_professores[1].sexo = 'M';
+    lista_professores[1].dataNascimento = DiaMesAno(6071987);
+    lista_professores[1].preenchido = 1;
+    lista_professores[1].matricula = 2;
+
+    //Professor 3
+    strcpy(lista_professores[2].nome,"Leo");
+    strcpy(lista_professores[2].CPF,"01234567890");
+    lista_professores[2].sexo = 'M';
+    lista_professores[2].dataNascimento = DiaMesAno(14041998);
+    lista_professores[2].preenchido = 1;
+    lista_professores[2].matricula = 3;
+
+    int qnt_professores_cadastrados = 3;
+    int matriculaProfessor = 3;
+
+    //Atribuição inicial a todos os professores
+    for(int i = qnt_professores_cadastrados; i < QNT_PROFESSORES; i++){
+        strcpy(lista_professores[i].nome,"Sem nome");
+        strcpy(lista_professores[i].CPF,"00000000000");
+        
+        lista_professores[i].sexo = 'O';
+        lista_professores[i].dataNascimento = DiaMesAno(0);
+        lista_professores[i].preenchido = 0;
+        lista_professores[i].matricula = 0;
+    }
+
+    
 
     // Disciplina listaDisciplinas[QTD_DISCIPLINAS];
     int qnt_disciplinas_cadastradas = 0;

@@ -91,7 +91,7 @@ int ExecutarAtualizarAluno(ALUNO lista[], int qnt){
         scanf(" %d",&matricula);
         getchar();
 
-        indice_encontrado = buscar_matricula(matricula, lista, qnt);
+        indice_encontrado = buscar_matricula_aluno(matricula, lista, qnt);
 
         if(indice_encontrado != -1)
             indice = indice_encontrado;
@@ -129,7 +129,7 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
     scanf("%d",&matricula);
     getchar();
 
-    int indice_encontrado = buscar_matricula(matricula, lista, *qnt_alunos_cadastrados);
+    int indice_encontrado = buscar_matricula_aluno(matricula, lista, *qnt_alunos_cadastrados);
 
     int indice;
 
@@ -148,7 +148,7 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
         if(op[0] == 'S' || op[0] == 's' ){
             lista[indice].preenchido = 0;
             printf("\n/// ALUNO EXCLUIDO ///\n");
-            ordenar_preenchidos(lista, *qnt_alunos_cadastrados);
+            ordenar_preenchidos_alunos(lista, *qnt_alunos_cadastrados);
             (*qnt_alunos_cadastrados)--;
 
             break;
@@ -290,7 +290,7 @@ void listarAlunos(ALUNO lista[], int qnt){
 }
 
 // EMPURRA OS NÃO PREENCHIDOS PARA FRENTE
-void ordenar_preenchidos(ALUNO lista[], int qnt){
+void ordenar_preenchidos_alunos(ALUNO lista[], int qnt){
     ALUNO temp;
 
     for(int i = 0; i < qnt - 1; i++){
@@ -305,7 +305,7 @@ void ordenar_preenchidos(ALUNO lista[], int qnt){
 }
 
 //PROCURA A MATRICULA DO ALUNO NA LISTA
-int buscar_matricula(int matricula, ALUNO lista[], int qnt){
+int buscar_matricula_aluno(int matricula, ALUNO lista[], int qnt){
     
     for(int i = 0; i < qnt; i++){
         
@@ -317,7 +317,7 @@ int buscar_matricula(int matricula, ALUNO lista[], int qnt){
 }
 
 //ORDENA VETOR DE ALUNOS POR MATRICULA
-void ordenar_por_matricula(ALUNO lista[], int qnt){
+void ordenar_por_matricula_alunos(ALUNO lista[], int qnt){
     ALUNO temp;
 
     for(int i = 0; i < qnt - 1; i++){
@@ -331,7 +331,7 @@ void ordenar_por_matricula(ALUNO lista[], int qnt){
 }
 
 //ORDENA VETOR DE ALUNOS POR NOME
-void ordenar_por_nome(ALUNO lista[], int qnt){
+void ordenar_por_nome_alunos(ALUNO lista[], int qnt){
    ALUNO temp;
 
    for(int i = 0; i < qnt - 1; i++){
@@ -346,9 +346,24 @@ void ordenar_por_nome(ALUNO lista[], int qnt){
 }
 
 //ORDENA VETOR DE ALUNOS POR SEXO
-void listar_por_sexo(ALUNO lista[], int qnt, char sexo){
-   if(qnt > 0){
-        printf("\n\n///          LISTAR ALUNOS         ///\n\n");
+void listar_por_sexo_alunos(ALUNO lista[], int qnt){
+    if(qnt > 0){
+        char sexo;
+        int invalido = 0;
+        printf("\n ----- Filtrar por sexo -----\n");
+        do{
+            printf("\n----- Sexo -------\n");
+            printf(" M - Masculino\n");
+            printf(" F - Feminino\n");
+            printf(" O - Outro\n");
+
+            printf("\nSelecione o sexo: ");
+            scanf(" %c",&sexo);
+            getchar();
+
+            invalido = validar_sexo(&sexo);
+
+        }while(invalido);
 
         for(int i = 0; i < qnt; i++){
             if(lista[i].preenchido == 1 && lista[i].sexo == sexo)
@@ -362,7 +377,7 @@ void listar_por_sexo(ALUNO lista[], int qnt, char sexo){
 }
 
 //ORDENA VETOR DE ALUNOS POR DATA
-void ordenar_por_data(ALUNO lista[], int qnt){
+void ordenar_por_data_alunos(ALUNO lista[], int qnt){
    ALUNO temp;
 
    for(int i = 0; i < qnt - 1; i++){
@@ -400,7 +415,7 @@ void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
     MenuListasFiltros();
     int ordenado = 0;
 
-    ordenar_preenchidos(lista_alunos, qnt_alunos_cadastrados);
+    ordenar_preenchidos_alunos(lista_alunos, qnt_alunos_cadastrados);
     do{
         printf("\nEscolha uma opcao: ");
         scanf("%d",&op);
@@ -410,45 +425,27 @@ void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
         switch (op)
         {
             case 1:
-                ordenar_por_matricula(lista_alunos, qnt_alunos_cadastrados);
+                ordenar_por_matricula_alunos(lista_alunos, qnt_alunos_cadastrados);
                 ordenado = 1;
                 break;
 
             case 2:
-                ordenar_por_nome(lista_alunos, qnt_alunos_cadastrados);
+                ordenar_por_nome_alunos(lista_alunos, qnt_alunos_cadastrados);
                 ordenado = 1;
                 break;
 
             case 3:
-                ordenar_por_data(lista_alunos, qnt_alunos_cadastrados);
+                ordenar_por_data_alunos(lista_alunos, qnt_alunos_cadastrados);
                 ordenado = 1;
                 break;
 
             case 4:{
-                char sexo;
-                int invalido = 0;
-                printf("\n ----- Filtrar por sexo -----\n");
-                do{
-                    printf("\n----- Sexo -------\n");
-                    printf(" M - Masculino\n");
-                    printf(" F - Feminino\n");
-                    printf(" O - Outro\n");
-
-                    printf("\nSelecione o sexo: ");
-                    scanf(" %c",&sexo);
-                    getchar();
-
-                    invalido = validar_sexo(&sexo);
-
-                }while(invalido);
-
-                listar_por_sexo(lista_alunos, qnt_alunos_cadastrados, sexo);
+                listar_por_sexo_alunos(lista_alunos, qnt_alunos_cadastrados);
                 return;
             }
             case 0:
                 printf("\n///  VOLTAR  ///\n");
-                ordenado = 1;
-                break;
+                return;
 
             default:
                 printf("\n///  Erro - escolha uma opcao valida  ///\n");

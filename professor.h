@@ -14,19 +14,32 @@ typedef struct PROFESSOR{
     int matricula;
     char CPF[12];
     DATA dataNascimento;
+    int preenchido;
 
 }PROFESSOR;
 
 void RelatorioProfessores(PROFESSOR lista_professores[], int qnt_professores_cadastrados);
 
-int cadastrarProfessor(PROFESSOR *professor); // Recebe um endereço de um struct PROFESSOR para preencher os dados do professor
+int LerDadosProfessor(PROFESSOR *professor); // Recebe um endereço de um struct PROFESSOR para preencher os dados do professor
 
 void imprimirDadosProfessor(PROFESSOR p);
 
-void listarProfessoresMatricula(PROFESSOR lista[], int qnt);
+void listarProfessores(PROFESSOR lista[], int qnt);
 
 void ExecutarCadastroProfessores(PROFESSOR lista_professores[], int *qnt_professores_cadastrados, int *matriculaProfessor);
 
 void CRUD_Professores(PROFESSOR lista_professores[], int *qnt_professores_cadastrados, int *matriculaProfessor);
+
+void listar_por_sexo_professores(PROFESSOR lista[], int qnt);
+
+int buscar_matricula_professor(int matricula, PROFESSOR lista[], int qnt);
+
+void ordenar_por_matricula_professores(PROFESSOR lista[], int qnt);
+
+void ordenar_por_data_professores(PROFESSOR lista[], int qnt);
+
+void ordenar_por_nome_professores(PROFESSOR lista[], int qnt);
+
+
 
 #endif

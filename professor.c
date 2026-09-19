@@ -39,9 +39,10 @@ void ExecutarCadastroProfessores(PROFESSOR lista_professores[], int *qnt_profess
 
         printf("/// Cadastrando Professor - %d. ///\n\n",*qnt_professores_cadastrados+1);
 
-        sucesso = cadastrarProfessor(&lista_professores[*qnt_professores_cadastrados]);
+        sucesso = LerDadosProfessor(&lista_professores[*qnt_professores_cadastrados]);
 
         if(sucesso){
+            printf("\n/// Cadastro concluido com sucesso! ///\n");
             (*matriculaProfessor)++;
             lista_professores[*qnt_professores_cadastrados].matricula = *matriculaProfessor;
             (*qnt_professores_cadastrados)++;
@@ -66,7 +67,7 @@ void ExecutarCadastroProfessores(PROFESSOR lista_professores[], int *qnt_profess
 }
 
 //CADASTRA UM PROFESSOR
-int cadastrarProfessor(PROFESSOR *professor){
+int LerDadosProfessor(PROFESSOR *professor){
     char nome[100];
     char sexo[10];
     char CPF[15];
@@ -121,11 +122,10 @@ int cadastrarProfessor(PROFESSOR *professor){
             professor->sexo = sexo[0];// |'M'|'\n'|'\0'|
             professor->dataNascimento = dataNascimento;
 
-            printf("\n/// Cadastro concluido com sucesso! ///\n");
             return 1; // sucesso
         }
         else if( salvar[0] == 'N' || salvar[0] == 'n'){
-            printf("\n/// Cadastro cancelado. Voltando... ///\n");
+            printf("\n/// Cadastro cancelado. ///\n");
             return 0; // cadastro cancelado;
         }
         else{
@@ -136,11 +136,115 @@ int cadastrarProfessor(PROFESSOR *professor){
 }   
 
 //LISTA OS PROFESSORES POR MATRICULA
-void listarProfessoresMatricula(PROFESSOR lista[], int qnt){// função listar
+void listarProfessores(PROFESSOR lista[], int qnt){// função listar
     printf("\n\n///          LISTAR PROFESSORES         ///\n\n");
 
     for(int i = 0; i < qnt; i++){
         imprimirDadosProfessor(lista[i]);
+    }
+}
+
+
+//PROCURA A MATRICULA DO PROFESSOR NA LISTA
+int buscar_matricula_professor(int matricula, PROFESSOR lista[], int qnt){
+    
+    for(int i = 0; i < qnt; i++){
+        
+        if(lista[i].matricula == matricula){
+            return i;
+        }
+    }
+    return -1;
+}
+
+//ORDENA VETOR DE PROFESSORES POR MATRICULA
+void ordenar_por_matricula_professores(PROFESSOR lista[], int qnt){
+    PROFESSOR temp;
+
+    for(int i = 0; i < qnt - 1; i++){
+        for(int j = 0; j < qnt - 1 - i; j++){
+            if(lista[j].matricula > lista[j+1].matricula){
+                temp = lista[j];
+                lista[j] = lista[j+1];
+                lista[j+1] = temp;
+        }   }
+    }
+}
+
+
+//ORDENA VETOR DE PROFESSORES POR NOME
+void ordenar_por_nome_professores(PROFESSOR lista[], int qnt){
+   PROFESSOR temp;
+
+   for(int i = 0; i < qnt - 1; i++){
+    for(int j = 0; j < qnt - 1 - i; j++){
+        if(strcmp(lista[j].nome, lista[j+1].nome) > 0){
+            temp = lista[j];
+            lista[j] = lista[j+1];
+            lista[j+1] = temp;
+        }
+    }
+   }
+}
+
+//ORDENA VETOR DE PROFESSORES POR SEXO
+void listar_por_sexo_professores(PROFESSOR lista[], int qnt){
+    if(qnt > 0){
+        char sexo;
+        int invalido = 0;
+        printf("\n ----- Filtrar por sexo -----\n");
+
+        do{
+            printf("\n----- Sexo -------\n");
+            printf(" M - Masculino\n");
+            printf(" F - Feminino\n");
+            printf(" O - Outro\n");
+
+            printf("\nSelecione o sexo: ");
+            scanf(" %c",&sexo);
+            getchar();
+
+            invalido = validar_sexo(&sexo);
+
+        }while(invalido);
+
+        for(int i = 0; i < qnt; i++){
+            if(lista[i].preenchido == 1 && lista[i].sexo == sexo)
+                imprimirDadosProfessor(lista[i]);
+        }
+    }
+    else{
+        printf("\n///  Nao ha alunos cadastrados!  ///\n");
+        return;
+    }
+}
+
+//ORDENA VETOR DE PROFESSORES POR DATA
+void ordenar_por_data_professores(PROFESSOR lista[], int qnt){
+   PROFESSOR temp;
+
+   for(int i = 0; i < qnt - 1; i++){
+        for(int j = 0; j < qnt - 1 - i; j++){
+            if(lista[j].dataNascimento.ano > lista[j+1].dataNascimento.ano){
+                temp = lista[j];
+                lista[j] = lista[j+1];
+                lista[j+1] = temp;
+            }
+            else if(lista[j].dataNascimento.ano == lista[j+1].dataNascimento.ano){
+                if(lista[j].dataNascimento.mes > lista[j+1].dataNascimento.mes){
+                    temp = lista[j];
+                    lista[j] = lista[j+1];
+                    lista[j+1] = temp;
+                }
+                else if(lista[j].dataNascimento.mes == lista[j+1].dataNascimento.mes){
+                    if(lista[j].dataNascimento.dia > lista[j+1].dataNascimento.dia){
+                        temp = lista[j];
+                        lista[j] = lista[j+1];
+                        lista[j+1] = temp;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -170,44 +274,54 @@ void imprimirDadosProfessor(PROFESSOR p){
 //EXIBE OPÇÕES DE LISTAGEM DOS PROFESSORES
 void RelatorioProfessores(PROFESSOR lista_professores[], int qnt_professores_cadastrados){
 
-    int listagem_professores = -1;
+    int op = -1;
+    int ordenado = 0;
 
     do{
         printf("\n\n///   LISTAR PROFESSORES   ///\n\n");
         MenuListasFiltros();
 
         printf("\nEscolha uma opção: ");
-        scanf("%d",&listagem_professores);
+        scanf("%d",&op);
         getchar();
 
-        switch (listagem_professores)
+        switch (op)
         {
             case 1:
-                //Ordenar por matricula (Ordem padrão)
-                listarProfessoresMatricula(lista_professores, qnt_professores_cadastrados);
+                //Ordenar por matricula
+                ordenar_por_matricula_professores(lista_professores, qnt_professores_cadastrados);
+                ordenado = 1;
                 break;
 
             case 2:
-                //Ordenar por Nome
+                //Ordenar por nome
+                ordenar_por_nome_professores(lista_professores, qnt_professores_cadastrados);
+                ordenado = 1;
                 break;
 
             case 3:
                 //Ordenar por Data de nascimento
+                ordenar_por_data_professores(lista_professores, qnt_professores_cadastrados);
+                ordenado = 1;
                 break;
 
             case 4:
                 //filtrar por sexo
-                break;
+                listar_por_sexo_professores(lista_professores, qnt_professores_cadastrados);
+                return;
 
             case 0:
                 printf("\n///  VOLTAR  ///\n");
-                break;
+                return;
 
             default:
                 printf("\n///  Erro - escolha uma opção valida  ///\n");
                 break;
         }
-    }while(listagem_professores != 0);
+    }while(ordenado == 0);
+
+    listarProfessores(lista_professores, qnt_professores_cadastrados);
+
 }
 
     //função atualizar
