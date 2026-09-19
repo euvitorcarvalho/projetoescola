@@ -1,4 +1,3 @@
-//DEFINIÇÃO DAS FUNÇÕES DE LEIURA
 #ifndef FUNCOES_H
 #define FUNCOES_H
 
@@ -12,25 +11,24 @@ typedef struct DATA
    int ano;
 } DATA; // representa uma data com dia, mês e ano
 
-
+//MENUS
 void MenuInicio();
 void MenuListas();
 void MenuListasFiltros();
 void Menu_CRUD();
 
-void ExecutarVerRelatorios(
-    ALUNO *lista_alunos, 
-    PROFESSOR *lista_professores,
-//  DISCIPLINA lista_disciplinas[],
-    int qnt_alunos_cadastrados, 
-    int qnt_professores_cadastrados
-//  int qnt_disciplinas_cadastradas
-);
+//FUNÇOES
+void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, int qnt_alunos_cadastrados, int qnt_professores_cadastrados);
 
-void RelatorioPessoas(); // Em desenvolvimento
+void buscar_nome_professores(char nome[], PROFESSOR *lista_professores, int qnt_professores_cadastrados);
+
+void buscar_nome_alunos(char nome[], ALUNO *lista_alunos, int qnt_alunos_cadastrados);
+
+void RelatorioPessoas(PROFESSOR *lista_professores, int qnt_professores_cadastrados, ALUNO *lista_alunos, int qnt_alunos_cadastrados); 
 
 void RelatorioAniversariantes(); // Em desenvolvimento
 
+//LEITURA
 void ler_str(char str[], int tamanho);
 
 void lerData(DATA *pData);
