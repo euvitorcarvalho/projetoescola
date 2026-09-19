@@ -15,7 +15,7 @@ int main(){
     strcpy(lista_alunos[0].nome,"Guilherme Almeida");
     strcpy(lista_alunos[0].CPF,"01234567890");
     lista_alunos[0].sexo = 'M';
-    lista_alunos[0].dataNascimento = DiaMesAno(3072006);
+    lista_alunos[0].dataNascimento = DiaMesAno(4072006);
     lista_alunos[0].preenchido = 1;
     lista_alunos[0].matricula = 1;
 
@@ -23,7 +23,7 @@ int main(){
     strcpy(lista_alunos[1].nome,"Luiza Almeida");
     strcpy(lista_alunos[1].CPF,"01234567890");
     lista_alunos[1].sexo = 'F';
-    lista_alunos[1].dataNascimento = DiaMesAno(3072006);
+    lista_alunos[1].dataNascimento = DiaMesAno(3082006);
     lista_alunos[1].preenchido = 1;
     lista_alunos[1].matricula = 2;
 
@@ -39,7 +39,7 @@ int main(){
     strcpy(lista_alunos[3].nome,"Joaozinho");
     strcpy(lista_alunos[3].CPF,"01234567890");
     lista_alunos[3].sexo = 'M';
-    lista_alunos[3].dataNascimento = DiaMesAno(17092026);
+    lista_alunos[3].dataNascimento = DiaMesAno(17092020);
     lista_alunos[3].preenchido = 1;
     lista_alunos[3].matricula = 4;
 

@@ -359,8 +359,6 @@ void listar_por_sexo(ALUNO lista[], int qnt, char sexo){
         printf("\n///  Nao ha alunos cadastrados!  ///\n");
         return;
     }
-
-    
 }
 
 //ORDENA VETOR DE ALUNOS POR DATA
@@ -368,25 +366,28 @@ void ordenar_por_data(ALUNO lista[], int qnt){
    ALUNO temp;
 
    for(int i = 0; i < qnt - 1; i++){
-    for(int j = 0; j < qnt - 1 - i; j++){
-        if(lista[j].dataNascimento.ano > lista[j+1].dataNascimento.ano){
-            temp = lista[j];
-            lista[j] = lista[j+1];
-            lista[j+1] = temp;
-        }
-        else if(lista[j].dataNascimento.mes > lista[j+1].dataNascimento.mes){
-            temp = lista[j];
-            lista[j] = lista[j+1];
-            lista[j+1] = temp;
-        }
-        else if(lista[j].dataNascimento.dia > lista[j+1].dataNascimento.dia){
-            temp = lista[j];
-            lista[j] = lista[j+1];
-            lista[j+1] = temp;
+        for(int j = 0; j < qnt - 1 - i; j++){
+            if(lista[j].dataNascimento.ano > lista[j+1].dataNascimento.ano){
+                temp = lista[j];
+                lista[j] = lista[j+1];
+                lista[j+1] = temp;
+            }
+            else if(lista[j].dataNascimento.ano == lista[j+1].dataNascimento.ano){
+                if(lista[j].dataNascimento.mes > lista[j+1].dataNascimento.mes){
+                    temp = lista[j];
+                    lista[j] = lista[j+1];
+                    lista[j+1] = temp;
+                }
+                else if(lista[j].dataNascimento.mes == lista[j+1].dataNascimento.mes){
+                    if(lista[j].dataNascimento.dia > lista[j+1].dataNascimento.dia){
+                        temp = lista[j];
+                        lista[j] = lista[j+1];
+                        lista[j+1] = temp;
+                    }
+                }
+            }
         }
     }
-   }
-
 }
 
 
@@ -446,7 +447,7 @@ void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
             }
             case 0:
                 printf("\n///  VOLTAR  ///\n");
-                ordenado = 0;
+                ordenado = 1;
                 break;
 
             default:
