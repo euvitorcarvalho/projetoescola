@@ -55,23 +55,21 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
 
         }
         
-        while (*qnt_alunos_cadastrados < QNT_ALUNOS) {
-            printf("\nDeseja cadastrar mais um aluno? (s/n): ");
-            ler_str(op, sizeof(op));
+        if(*qnt_alunos_cadastrados < QNT_ALUNOS){
+            do{
+                printf("\nDeseja cadastrar mais um aluno? (s/n): ");
+                ler_str(op, sizeof(op));
 
-            if (op[0] == 'S' || op[0] == 's') {
-                continuar = 1;
-                break;
-            }
-            else if (op[0] == 'N' || op[0] == 'n') {
-                continuar = 0;
-                break;
-            }
-            else {
-                printf("\n///  Erro - Digite uma opcao valida.  ///\n");
-            }
+                int opcao = validar_opcao(op);
+
+                switch(opcao){
+                    case 1:  continuar = 1; break;
+                    case 2:  continuar = 0; break;
+                    default: continuar = -1; printf("\n///  Erro - Digite uma opcao valida.  ///\n"); break;
+                }
+
+            }while(continuar == -1);
         }
-
     } while (continuar == 1);
 }
 
@@ -114,7 +112,8 @@ int ExecutarAtualizarAluno(ALUNO lista[], int qnt){
     }   
 }
 
-int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
+// EXCLUIR ALUNO    
+void ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
     int matricula;
     printf("\n\n///  EXCLUIR ALUNO  ///\n\n");
 
@@ -122,7 +121,7 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
         listarAlunos(lista, *qnt_alunos_cadastrados);
     else {
         printf("\n/// Nao ha alunos cadastrados. ///\n");
-        return 0;
+        return;
     }
 
     printf("\nDigite a matricula do aluno: ");
@@ -137,7 +136,7 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
         indice = indice_encontrado;
     else{
         printf("\n/// Aluno nao encontrado! ///\n");
-        return 0;
+        return;
     }
 
     char op[10];
@@ -145,21 +144,27 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
         printf("\nDeseja excluir %s? (s/n) ", lista[indice].nome);
         ler_str(op,sizeof(op));
 
-        if(op[0] == 'S' || op[0] == 's' ){
-            lista[indice].preenchido = 0;
-            printf("\n/// ALUNO EXCLUIDO ///\n");
-            ordenar_preenchidos_alunos(lista, *qnt_alunos_cadastrados);
-            (*qnt_alunos_cadastrados)--;
+        int opcao = validar_opcao(op);
 
-            break;
-        }
-        if(op[0] == 'N' || op[0] == 'n'){
-            printf("\n/// Voltando... ///\n");
-            return 0;
+        switch(opcao){
+            case 1:
+                lista[indice].preenchido = 0;
+                printf("\n/// ALUNO EXCLUIDO ///\n");
+                ordenar_preenchidos_alunos(lista, *qnt_alunos_cadastrados);
+                (*qnt_alunos_cadastrados)--;
+
+                return;
+
+            case 2:
+                printf("\n/// Voltando... ///\n");
+                return;
+
+            default: 
+                printf("\n///  Erro - Digite uma opcao valida.  ///\n"); 
+                break;
         }
     }while(1);
     
-    return 1;
 }   
 
 
@@ -227,25 +232,31 @@ int LerDadosAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
         }
     }while(invalido); // repete a leitura enquanto for invalido
 
-    //ATRIBUIÇÃO - se os dados forem validos, atribuir ao aluno
+    
     char salvar[10];
     do{
         printf("\nSalvar cadastro? (s/n): ");
         ler_str(salvar, sizeof(salvar));
 
-        if(salvar[0] == 's' || salvar[0] == 'S'){
-            strcpy(pAluno->nome, nome);
-            strcpy(pAluno->CPF, cpf);//                                                   0    1    2    
-            pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
-            pAluno->dataNascimento = data;    
-            return 1; //sucesso
+        int opcao = validar_opcao(salvar);
+
+        switch(opcao){
+            case 1:
+                //ATRIBUIÇÃO - se os dados forem validos, atribuir ao aluno
+                strcpy(pAluno->nome, nome);
+                strcpy(pAluno->CPF, cpf);//                                                   0    1    2    
+                pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
+                pAluno->dataNascimento = data;    
+                return 1; //sucesso
+                
+            case 2:
+                printf("\n/// Cadastro cancelado. voltando... ///\n");
+                return 0;
+
+            default:
+                printf("\nDigite uma opção valida.\n");
+                break;
         }
-        else if(salvar[0] == 'n' || salvar[0] == 'N'){
-            printf("\n/// Cadastro cancelado. voltando... ///\n");
-            return 0;
-        }
-        else   
-            printf("\nDigite uma opção valida.\n");
     }while(1);
 }
 

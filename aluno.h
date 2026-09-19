@@ -25,7 +25,7 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
 
 int ExecutarAtualizarAluno(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-int ExecutarExcluirAluno(ALUNO lista_alunos[], int *qnt_alunos_cadastrados);
+void ExecutarExcluirAluno(ALUNO lista_alunos[], int *qnt_alunos_cadastrados);
 
 void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 

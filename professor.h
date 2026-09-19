@@ -6,7 +6,7 @@
 #include "funcoes.h"
 
 // Declarações de funções, structs e constantes
-#define QNT_PROFESSORES 3
+#define QNT_PROFESSORES 6
 
 typedef struct PROFESSOR{
     char nome[100];
@@ -45,7 +45,5 @@ void ordenar_por_matricula_professores(PROFESSOR lista_professores[], int qnt_pr
 void ordenar_por_data_professores(PROFESSOR lista_professores[], int qnt_professores_cadastrados);
 
 void ordenar_por_nome_professores(PROFESSOR lista_professores[], int qnt_professores_cadastrados);
-
-
 
 #endif

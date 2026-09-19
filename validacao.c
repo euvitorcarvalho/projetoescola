@@ -59,7 +59,7 @@ int validar_sexo(char sexo[]){
   if(sexo[1] != '\0'){
     return 1;
   }
-  if (sexo[0] == 'M' || sexo[0] == 'm'){
+  else if (sexo[0] == 'M' || sexo[0] == 'm'){
     sexo[0] = 'M';
     return 0;
   }
@@ -72,4 +72,18 @@ int validar_sexo(char sexo[]){
     return 0;
   }
   else return 1; // inválido
+}
+
+int validar_opcao(char op[]){
+  if(op[1] != '\0')
+    return 0;
+  
+  else if (op[0] == 'S' || op[0] == 's' || op[0] == '1')
+    return 1;
+  
+  else if (op[0] == 'N' || op[0] == 'n' || op[0] == '2')
+    return 2;
+
+  else
+    return 0;
 }

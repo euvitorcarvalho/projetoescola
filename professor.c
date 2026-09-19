@@ -47,24 +47,20 @@ void ExecutarCadastroProfessores(PROFESSOR lista_professores[], int *qnt_profess
             lista_professores[*qnt_professores_cadastrados].matricula = *matriculaProfessor;
             (*qnt_professores_cadastrados)++;
         }
-        while(*qnt_professores_cadastrados < QNT_PROFESSORES){
-            printf("\nDeseja cadastrar mais um professor? (s/n): ");
-            ler_str(op, sizeof(op));
-            
-            if(op[1] == '\0'){
-                if(op[0] == 'S' || op[0] == 's'){
-                    continuar = 1;
-                    break;
+        if(*qnt_professores_cadastrados < QNT_PROFESSORES){
+            do{
+                printf("\nDeseja cadastrar mais um professor? (s/n): ");
+                ler_str(op, sizeof(op));
+                
+                int opcao = validar_opcao(op);
+                
+                switch(opcao){
+                    case 1: continuar = 1; break;
+                    case 2: continuar = 0; break;
+                    default: continuar = -1; printf("\n///  Erro - Digite uma opção valida.  ///\n"); break;
                 }
-                else if(op[0] == 'N' || op[0] == 'n'){
-                    continuar = 0;
-                    break;
-                }
-                else
-                    printf("\n///  Erro - Digite uma opção valida.  ///\n");
-            }
+            }while(continuar == -1);
         }
-
     }while(continuar == 1);
 }
 
@@ -138,17 +134,26 @@ void ExecutarExcluirProfessor(PROFESSOR lista[], int *qnt_professores_cadastrado
         printf("\nDeseja excluir %s? (s/n) ", lista[indice].nome);
         ler_str(op, sizeof(op));
 
-        if(op[0] == 'S' || op[0] == 's' ){
-            lista[indice].preenchido = 0;
-            printf("\n/// PROFESSOR EXCLUIDO ///\n");
-            ordenar_preenchidos_professores(lista, *qnt_professores_cadastrados);
-            (*qnt_professores_cadastrados)--;
-            return;
+        int opcao = validar_opcao(op);
 
-        }
-        if(op[0] == 'N' || op[0] == 'n'){
-            printf("\n/// Voltando... ///\n");
-            return;
+        switch (opcao){
+            case 1:
+                printf("\n/// PROFESSOR EXCLUIDO ///\n");
+
+                lista[indice].preenchido = 0;
+
+                ordenar_preenchidos_professores(lista, *qnt_professores_cadastrados);
+
+                (*qnt_professores_cadastrados)--;
+                return;
+
+            case 2:
+                printf("\n/// Voltando... ///\n");
+                return;
+
+            default:
+                printf("\n///  Erro - Digite uma opção valida.  ///\n"); 
+                break;
         }
     }while(1);
     
@@ -203,24 +208,26 @@ int LerDadosProfessor(PROFESSOR *professor){
         printf("\nDeseja salvar o cadastro? (s/n): ");
         ler_str(salvar, sizeof(salvar));
 
-        if(salvar[0] == 'S' || salvar[0] == 's'){
-            //ATRIBUIÇÃO
-            strcpy(professor->nome,nome);
-            strcpy(professor->CPF,CPF);//  0    1    2
-            professor->sexo = sexo[0];// |'M'|'\n'|'\0'|
-            professor->dataNascimento = dataNascimento;
+        int opcao = validar_opcao(salvar);
 
-            return 1; // sucesso
-        }
-        else if( salvar[0] == 'N' || salvar[0] == 'n'){
-            printf("\n/// Cadastro cancelado. ///\n");
-            return 0; // cadastro cancelado;
-        }
-        else{
-            printf("\n/// Digite uma opção valida. ///\n");
+        switch(opcao){
+            case 1: 
+                //ATRIBUIÇÃO
+                strcpy(professor->nome,nome);
+                strcpy(professor->CPF,CPF);//  0    1    2
+                professor->sexo = sexo[0];// |'M'|'\n'|'\0'|
+                professor->dataNascimento = dataNascimento;
+                return 1; // sucesso
+
+            case 2:
+                printf("\n/// Cadastro cancelado. ///\n");
+                return 0; // cadastro cancelado; 
+
+            default:
+                printf("\n///  Erro - Digite uma opção valida.  ///\n"); 
+                break;
         }
     }while(1);
-
 }   
 
 //LISTA OS PROFESSORES POR MATRICULA
