@@ -25,23 +25,23 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
 
 int ExecutarAtualizarAluno(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-int ExecutarExcluirAluno(ALUNO lista_alunos[], int *qnt_alunos_cadastrados);
+void ExecutarExcluirAluno(ALUNO lista_alunos[], int *qnt_alunos_cadastrados);
 
 void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
 void CRUD_Alunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, int *matriculaAluno);
 
-int buscar_matricula(int matricula, ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+int buscar_matricula_aluno(int matricula, ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-void ordenar_por_matricula(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+void ordenar_por_matricula_alunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-void ordenar_por_nome(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+void ordenar_por_nome_alunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-void ordenar_por_data(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+void ordenar_por_data_alunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-void ordenar_preenchidos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+void ordenar_preenchidos_alunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-void ordenar_por_sexo(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+void listar_por_sexo_alunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
 
 #endif
