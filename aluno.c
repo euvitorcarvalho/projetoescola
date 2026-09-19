@@ -155,7 +155,7 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
         }
         if(op[0] == 'N' || op[0] == 'n'){
             printf("\n/// Voltando... ///\n");
-            break;
+            return 0;
         }
     }while(1);
     

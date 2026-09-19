@@ -17,8 +17,8 @@ void CRUD_Professores(PROFESSOR lista_professores[], int *qnt_professores_cadast
 
     switch(menu){
         case 1: ExecutarCadastroProfessores(lista_professores, qnt_professores_cadastrados, matriculaProfessor);break;
-        case 2: /*ExecutarAtualizarProfessor(parametros)*/; break;
-        case 3: /*ExecutarExcluirProfessor(parametros)*/ ;break;
+        case 2: ExecutarAtualizarProfessor(lista_professores, *qnt_professores_cadastrados); break;
+        case 3: ExecutarExcluirProfessor(lista_professores, qnt_professores_cadastrados); break;
         case 0: return;
     }
 
@@ -50,21 +50,109 @@ void ExecutarCadastroProfessores(PROFESSOR lista_professores[], int *qnt_profess
         while(*qnt_professores_cadastrados < QNT_PROFESSORES){
             printf("\nDeseja cadastrar mais um professor? (s/n): ");
             ler_str(op, sizeof(op));
-
-            if(op[0] == 'S' || op[0] == 's'){
-                continuar = 1;
-                break;
+            
+            if(op[1] == '\0'){
+                if(op[0] == 'S' || op[0] == 's'){
+                    continuar = 1;
+                    break;
+                }
+                else if(op[0] == 'N' || op[0] == 'n'){
+                    continuar = 0;
+                    break;
+                }
+                else
+                    printf("\n///  Erro - Digite uma opção valida.  ///\n");
             }
-            else if(op[0] == 'N' || op[0] == 'n'){
-                continuar = 0;
-                break;
-            }
-            else
-                printf("\n///  Erro - Digite uma opção valida.  ///\n");
         }
 
     }while(continuar == 1);
 }
+
+//ATUALIZAR DADOS DO PROFESSOR
+void ExecutarAtualizarProfessor(PROFESSOR lista[], int qnt){
+    int matricula;
+    int sucesso;
+    int indice_encontrado;
+    int indice;
+
+    if(qnt > 0){
+        listarProfessores(lista, qnt);
+        printf("\n\n///  ATUALIZAR CADASTRO  ///\n");
+
+        printf("\nDigite a matricula do professor: ");
+        scanf(" %d",&matricula);
+        getchar();
+
+        indice_encontrado = buscar_matricula_professor(matricula, lista, qnt);
+
+        if(indice_encontrado != -1)
+            indice = indice_encontrado;
+        else{
+            printf("\n/// Professor nao encontrado. ///\n");
+            return;
+        }
+
+        sucesso = LerDadosProfessor(&lista[indice]);
+
+        if(sucesso){ 
+            printf("\n///  Dados atualizados com sucesso!  ///\n");
+            return;
+        }
+        else return;
+    }
+    else {
+        printf("\n\n/// Nao ha professores cadastrados! ///\n\n");
+        return;
+    }   
+}
+
+//EXCLUI PROFESSOR
+void ExecutarExcluirProfessor(PROFESSOR lista[], int *qnt_professores_cadastrados){
+    int matricula;
+    printf("\n\n///  EXCLUIR PROFESSOR  ///\n\n");
+
+    if(*qnt_professores_cadastrados > 0)
+        listarProfessores(lista, *qnt_professores_cadastrados);
+    else {
+        printf("\n/// Nao ha professores cadastrados. ///\n");
+        return;
+    }
+
+    printf("\nDigite a matricula do professor: ");
+    scanf("%d",&matricula);
+    getchar();
+
+    int indice_encontrado = buscar_matricula_professor(matricula, lista, *qnt_professores_cadastrados);
+
+    int indice;
+
+    if(indice_encontrado != -1)
+        indice = indice_encontrado;
+    else{
+        printf("\n/// Professor nao encontrado! ///\n");
+        return;
+    }
+
+    char op[10];
+    do{
+        printf("\nDeseja excluir %s? (s/n) ", lista[indice].nome);
+        ler_str(op, sizeof(op));
+
+        if(op[0] == 'S' || op[0] == 's' ){
+            lista[indice].preenchido = 0;
+            printf("\n/// PROFESSOR EXCLUIDO ///\n");
+            ordenar_preenchidos_professores(lista, *qnt_professores_cadastrados);
+            (*qnt_professores_cadastrados)--;
+            return;
+
+        }
+        if(op[0] == 'N' || op[0] == 'n'){
+            printf("\n/// Voltando... ///\n");
+            return;
+        }
+    }while(1);
+    
+} 
 
 //CADASTRA UM PROFESSOR
 int LerDadosProfessor(PROFESSOR *professor){
@@ -74,7 +162,7 @@ int LerDadosProfessor(PROFESSOR *professor){
     DATA dataNascimento;
     int invalido = 0;
 
-    printf("digite seu nome: ");
+    printf("Digite seu nome: ");
     ler_str(nome,sizeof(nome));// recebe o nome.
     do{
          printf("\n----- Sexo -----\n");
@@ -144,6 +232,20 @@ void listarProfessores(PROFESSOR lista[], int qnt){// função listar
     }
 }
 
+// EMPURRA OS NÃO PREENCHIDOS PARA FRENTE
+void ordenar_preenchidos_professores(PROFESSOR lista[], int qnt){
+    PROFESSOR temp;
+
+    for(int i = 0; i < qnt - 1; i++){
+        for( int j = 0; j < qnt - 1 - i; j++){
+            if(lista[j].preenchido < lista[j+1].preenchido){
+                temp = lista[j];
+                lista[j] = lista[j+1];
+                lista[j+1] = temp;
+            }
+        }
+    }
+}
 
 //PROCURA A MATRICULA DO PROFESSOR NA LISTA
 int buscar_matricula_professor(int matricula, PROFESSOR lista[], int qnt){
