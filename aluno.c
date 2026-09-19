@@ -44,9 +44,10 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
             }
         }
 
-        sucesso = cadastrarAluno(&lista_alunos[indice]);
+        sucesso = LerDadosAluno(&lista_alunos[indice]);
 
         if (sucesso) {
+            printf("\n/// Cadastro Salvo! ///\n");
             (*matriculaAluno)++;
             lista_alunos[indice].matricula = *matriculaAluno;
             lista_alunos[indice].preenchido = 1;
@@ -98,7 +99,8 @@ int ExecutarAtualizarAluno(ALUNO lista[], int qnt){
             printf("\n/// Aluno nao encontrado. ///\n");
             return 0;
         }
-        sucesso = cadastrarAluno(&lista[indice]);
+
+        sucesso = LerDadosAluno(&lista[indice]);
 
         if(sucesso){ 
             printf("\n///  Dados atualizados com sucesso!  ///\n");
@@ -161,8 +163,8 @@ int ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
 }   
 
 
-//CADASTRA O ALUNO
-int cadastrarAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
+//LER E VALIDA OS DADOS DO ALUNO
+int LerDadosAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
 
     // cópia das variaveis do aluno, para leiura e validação antes de atribuir ao aluno
     char nome[100];
@@ -235,9 +237,7 @@ int cadastrarAluno(ALUNO *pAluno){ // recebe o endereço do aluno para alterar
             strcpy(pAluno->nome, nome);
             strcpy(pAluno->CPF, cpf);//                                                   0    1    2    
             pAluno->sexo = sexo[0]; // passa primeira letra lida da string de sexo. ex: | M | \n | \0 |
-            pAluno->dataNascimento = data;
-            printf("\n/// Cadastro Salvo! ///\n");
-    
+            pAluno->dataNascimento = data;    
             return 1; //sucesso
         }
         else if(salvar[0] == 'n' || salvar[0] == 'N'){
@@ -346,9 +346,21 @@ void ordenar_por_nome(ALUNO lista[], int qnt){
 }
 
 //ORDENA VETOR DE ALUNOS POR SEXO
-void ordenar_por_sexo(ALUNO lista[], int qnt){
-   ALUNO temp;
-    // em breve
+void listar_por_sexo(ALUNO lista[], int qnt, char sexo){
+   if(qnt > 0){
+        printf("\n\n///          LISTAR ALUNOS         ///\n\n");
+
+        for(int i = 0; i < qnt; i++){
+            if(lista[i].preenchido == 1 && lista[i].sexo == sexo)
+                imprimirDadosAluno(lista[i]);
+        }
+    }
+    else{
+        printf("\n///  Nao ha alunos cadastrados!  ///\n");
+        return;
+    }
+
+    
 }
 
 //ORDENA VETOR DE ALUNOS POR DATA
@@ -411,11 +423,27 @@ void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
                 ordenado = 1;
                 break;
 
-            case 4:
-                ordenar_por_sexo(lista_alunos, qnt_alunos_cadastrados);
-                ordenado = 1;
-                break;
+            case 4:{
+                char sexo;
+                int invalido = 0;
+                printf("\n ----- Filtrar por sexo -----\n");
+                do{
+                    printf("\n----- Sexo -------\n");
+                    printf(" M - Masculino\n");
+                    printf(" F - Feminino\n");
+                    printf(" O - Outro\n");
 
+                    printf("\nSelecione o sexo: ");
+                    scanf(" %c",&sexo);
+                    getchar();
+
+                    invalido = validar_sexo(&sexo);
+
+                }while(invalido);
+
+                listar_por_sexo(lista_alunos, qnt_alunos_cadastrados, sexo);
+                return;
+            }
             case 0:
                 printf("\n///  VOLTAR  ///\n");
                 ordenado = 0;

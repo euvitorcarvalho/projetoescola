@@ -27,7 +27,7 @@ void Menu_CRUD(){
     printf("__________________ MENU __________________\n\n");
     printf("| 1 - Cadastrar                          |\n");
     printf("| 2 - Atualizar Dados                    |\n");
-    printf("| 3 - Excluir Aluno                      |\n");
+    printf("| 3 - Excluir                            |\n");
     printf("| 0 - Sair                               |\n");
     printf("|________________________________________|\n");
 

@@ -12,13 +12,14 @@ typedef struct ALUNO
     char CPF[12]; // formato: XXXXXXXXXXX\0
     DATA dataNascimento; // data com dia, mês e ano separados
     int preenchido;
+    int contDisciplinas; // contador de disciplinas matriculadas
 } ALUNO;
 
 void imprimirDadosAluno(ALUNO a); // exibe informações do aluno
 
 void listarAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-int cadastrarAluno(ALUNO *aluno); // cadastra o aluno
+int LerDadosAluno(ALUNO *aluno); // Lê e valida os dados do aluno
 
 void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, int *matriculaAluno);
 
