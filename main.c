@@ -9,6 +9,7 @@
 
 
 int main(){
+    //Lista de alunos
     ALUNO lista_alunos[QNT_ALUNOS];
 
     //Aluno 1
@@ -58,6 +59,7 @@ int main(){
         lista_alunos[i].matricula = 0;
     }
 
+    //Lista de professores
     PROFESSOR lista_professores[QNT_PROFESSORES];
 
     //Professor 1
@@ -99,9 +101,9 @@ int main(){
     }
 
     
-
-    // Disciplina listaDisciplinas[QTD_DISCIPLINAS];
-    int qnt_disciplinas_cadastradas = 0;
+    //Lista de disciplinas
+    // DISCIPLINA lista_disciplinas[QTD_DISCIPLINAS];
+    //int qnt_disciplinas_cadastradas = 0;
 
     int menu = -1;
 

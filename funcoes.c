@@ -9,7 +9,7 @@
 
 //MENU INICIAL
 void MenuInicio(){
-    printf("\n\n///          PROJETO ESCOLA         ///\n\n");
+    printf("\n\n///          PROJETO ESCOLA         ///\n");
 
     printf("__________________ MENU __________________\n\n");
     printf("| 1 - Alunos                             |\n");
@@ -22,7 +22,7 @@ void MenuInicio(){
 }
 // MENU DO CRUD (CADASTRAR, ATUALIZAR, EXCLUIR)
 void Menu_CRUD(){
-    printf("\n\n///          CADASTRAR        ///\n\n");
+    printf("\n\n///          CADASTRAR        ///\n");
 
     printf("__________________ MENU __________________\n\n");
     printf("| 1 - Cadastrar                          |\n");
@@ -35,7 +35,7 @@ void Menu_CRUD(){
 
 // MENU DAS LISTAS
 void MenuListas(){
-    printf("\n\n///           VER RELATÓRIOS         ///\n\n");
+    printf("\n\n///           VER RELATÓRIOS         ///\n");
 
     printf("__________________ LISTAS ________________\n\n");
     printf("| 1 - listar Alunos                      |\n");
@@ -49,6 +49,8 @@ void MenuListas(){
 
 // MENU DE ORDENAÇÃO DAS LISTAGENS
 void MenuListasFiltros(){
+    printf("\n\n///           VER RELATÓRIOS         ///\n");
+
     printf("\n________________ FILTROS _______________\n\n");
     printf("| 1 - Ordenar por matricula              |\n");
     printf("| 2 - Ordenar por nome                   |\n");
@@ -76,6 +78,7 @@ void lerData(DATA *pData){ // recebe o endereço da variavel do tipo Data
     // lê um numero no formato ddmmaaaa
     scanf("%d",&num);  
     getchar(); // limpar buffer 😭
+
     // chama função para separar em dia, mes e ano
     *pData = DiaMesAno(num);
 }
@@ -114,7 +117,7 @@ void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, in
                 //RelatorioDisciplinas();
                 break;
             case 4 :
-                //RelatorioPessoas();
+                RelatorioPessoas(lista_professores, qnt_professores_cadastrados, lista_alunos, qnt_alunos_cadastrados);
                 break;
             case 5 :
                 //RelatorioAniversariantes();
@@ -130,8 +133,58 @@ void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, in
     }while(listagem != 0);
 }
 
-void RelatorioPessoas(){
-    printf("\n\n///   LISTAR PESSOAS   ///\n\n");
+void buscar_nome_alunos(char nome[], ALUNO *lista, int qnt){
+    int contador = 0;
+    for(int i = 0; i < qnt; i++){
+        if(strstr(lista[i].nome, nome) != NULL){
+            imprimirDadosAluno(lista[i]);
+            contador++;
+        }
+    }
+    if(contador == 0){
+        printf("\n///   Nenhum aluno encontrado   ///\n");
+        return;
+    }
+}
+
+void buscar_nome_professores(char nome[], PROFESSOR *lista, int qnt){
+    int contador = 0;
+    for(int i = 0; i < qnt; i++){
+        if(strstr(lista[i].nome, nome) != NULL){
+            imprimirDadosProfessor(lista[i]);
+            contador++;
+        }
+    }
+    if(contador == 0){
+        printf("\n/// Nenhum professor encontrado ///\n");
+        return;
+    }
+    
+}
+
+void RelatorioPessoas(PROFESSOR *lista_professores, int qnt_professores_cadastrados, ALUNO *lista_alunos, int qnt_alunos_cadastrados){
+    char busca[100];
+    printf("\n\n///      LISTAR PESSOAS       ///\n\n");
+    do{
+        printf("\nBUSCAR\n");
+
+        printf("\nDigite o nome da pessoa: ");
+        ler_str(busca, sizeof(busca));
+
+        if(strlen(busca) < 3)
+            printf("\nDigite pelo menos tres letras.\n");
+    
+    }while(strlen(busca) < 3);
+
+    printf("\n///      RESULTADO DA BUSCA     ///\n");
+
+    printf("\n-------------PROFESSORES-----------\n");
+    buscar_nome_professores(busca, lista_professores, qnt_professores_cadastrados);
+
+    printf("\n---------------ALUNOS--------------\n");
+    buscar_nome_alunos(busca, lista_alunos, qnt_alunos_cadastrados);
+
+    printf("\n///////////////////////////////////\n");
 
 }
 
