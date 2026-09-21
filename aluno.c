@@ -21,7 +21,7 @@ void CRUD_Alunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, int *matricu
             case 1: ExecutarCadastroAlunos(lista_alunos, qnt_alunos_cadastrados, matriculaAluno); break;
             case 2: ExecutarAtualizarAluno(lista_alunos, *qnt_alunos_cadastrados); break;
             case 3: ExecutarExcluirAluno(lista_alunos, qnt_alunos_cadastrados); break;
-            case 0: return; // voltar
+            case 0: printf("\n///                VOLTAR               ///\n"); return;
             default: printf("\n///  Erro - Digite uma opcao valida.  ///\n"); break;
         }
     }while(1);
@@ -95,7 +95,7 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
 
                 switch(opcao){
                     case 1:  continuar = 1; break;
-                    case 2:  continuar = 0; break;
+                    case 2:  continuar = 0; printf("\n///                VOLTAR               ///\n"); break;
                     default: continuar = -1; printf("\n///  Erro - Digite uma opcao valida.  ///\n"); break;
                 }
 
@@ -248,7 +248,7 @@ ALUNO LerDadosAluno(){
         invalido = validar_sexo(sexo); 
 
         switch(invalido){
-            case 1 : printf("\nSelecione uma opção valida."); break;
+            case 1 : printf("\n///  Erro - Digite uma opcao valida.  ///\n"); break;
             default : break;
         }
 
@@ -322,7 +322,7 @@ void imprimirDadosAluno(ALUNO a){
 
 }
 
-//LISTA ALUNOS
+//FAZ A LISTAGEM DOS ALUNOS
 void listarAlunos(ALUNO lista[], int qnt){
     if(qnt > 0){
        
@@ -396,7 +396,7 @@ void ordenar_por_nome_alunos(ALUNO lista[], int qnt){
 //ORDENA VETOR DE ALUNOS POR SEXO
 void listar_por_sexo_alunos(ALUNO lista[], int qnt){
     if(qnt > 0){
-        char sexo;
+        char sexo[10];
         int invalido = 0;
         printf("\n ----- Filtrar por sexo -----\n");
         do{
@@ -406,20 +406,19 @@ void listar_por_sexo_alunos(ALUNO lista[], int qnt){
             printf(" O - Outro\n");
 
             printf("\nSelecione o sexo: ");
-            scanf(" %c",&sexo);
-            getchar();
+            ler_str(sexo, sizeof(sexo));
 
-            invalido = validar_sexo(&sexo);
+            invalido = validar_sexo(sexo);
 
         }while(invalido);
 
         for(int i = 0; i < qnt; i++){
-            if(lista[i].preenchido == 1 && lista[i].sexo == sexo)
+            if(lista[i].preenchido == 1 && lista[i].sexo == sexo[0]) // imprime os dados do aluno caso esteja preenchido e seja do sexo escolhido
                 imprimirDadosAluno(lista[i]);
         }
     }
     else{
-        printf("\n///  Nao ha alunos cadastrados!  ///\n");
+        printf("\n///  Nao ha alunos cadastrados!       ///\n");
         return;
     }
 }
@@ -453,12 +452,11 @@ void ordenar_por_data_alunos(ALUNO lista[], int qnt){
     }
 }
 
-//EXIBE OPÇÕES DE LISTAR ALUNOS
+//GERENCIA E EXIBE OPÇÕES DE LISTAR ALUNOS
 void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
 
     int op = -1;
-    printf("\n\n///           LISTAR ALUNOS         ///\n");
-
+    printf("\n///         LISTAR ALUNOS            ///\n");
 
     ordenar_preenchidos_alunos(lista_alunos, qnt_alunos_cadastrados);
     do{
@@ -495,7 +493,7 @@ void RelatorioAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados){
                 return;
 
             default:
-                printf("\n///  Erro - escolha uma opcao valida  ///\n");
+                printf("\n///   Erro - escolha uma opcao valida   ///\n");
                 break;
         }
     }while(1);
