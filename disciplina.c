@@ -5,7 +5,7 @@
 
 #include "professor.h"
 
-void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[],
+void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[], ALUNO lista_alunos[],
                       PROFESSOR lista_professores[],
                       int* qnt_disciplinas_cadastradas, int* codigoDisciplina) {
   int opcao = -1;
@@ -64,7 +64,8 @@ void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[],
               "Erro: Professor com matricula %d nao encontrado. Cadastro "
               "cancelado.\n",
               matProfDigitada);
-          strcpy(lista_disciplinas[indice].nome, "Sem nome");
+
+          lista_disciplinas[indice] = (DISCIPLINA){0};
         }
         break;
       }
@@ -93,8 +94,7 @@ void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[],
                    lista_disciplinas[i].matriculaProfessor);
             scanf("%d", &matProfDigitada);
 
-            for (int j = 0; j < 50;
-                 j++) {  // Ideal usar QNT_PROFESSORES aqui também
+            for (int j = 0; j < QNT_PROFESSORES; j++) {
               if (lista_professores[j].preenchido == 1 &&
                   lista_professores[j].matricula == matProfDigitada) {
                 profValido = 1;
@@ -115,7 +115,7 @@ void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[],
         }
         if (!encontrou) printf("Disciplina nao encontrada.\n");
         break;
-      }  // A CHAVE DO CASE 2 DEVE FECHAR AQUI
+      }
 
       case 3: {  // EXCLUIR
         int codigoBusca, encontrou = 0;
@@ -125,8 +125,9 @@ void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[],
         for (int i = 0; i < QTD_DISCIPLINAS; i++) {
           if (lista_disciplinas[i].preenchido == 1 &&
               lista_disciplinas[i].codigo == codigoBusca) {
-            lista_disciplinas[i].preenchido = 0;
+            lista_disciplinas[i] = (DISCIPLINA){0};
             (*qnt_disciplinas_cadastradas)--;
+
             printf("Disciplina excluida com sucesso!\n");
             encontrou = 1;
             break;

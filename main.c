@@ -133,7 +133,7 @@ int main() {
                          &matriculaProfessor);
         break;
       case 3:
-        CRUD_Disciplinas(lista_disciplinas, lista_professores,
+        CRUD_Disciplinas(lista_disciplinas, lista_alunos, lista_professores,
                          &qnt_disciplinas_cadastradas, &codigoDisciplina);
         break;
       case 4:
