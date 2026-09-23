@@ -138,8 +138,9 @@ int main() {
         break;
       case 4:
         ExecutarVerRelatorios(lista_alunos, lista_professores,
-                              qnt_alunos_cadastrados,
-                              qnt_professores_cadastrados);
+                              lista_disciplinas, qnt_alunos_cadastrados,
+                              qnt_professores_cadastrados,
+                              qnt_disciplinas_cadastradas);
         break;
       case 0:
         printf("\n\n/////   PROGRAMA ENCERRADO   //////\n\n");
