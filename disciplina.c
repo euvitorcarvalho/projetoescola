@@ -5,6 +5,88 @@
 
 #include "professor.h"
 
+void RelatorioDisciplinas(DISCIPLINA lista_disciplinas[],
+                          int qnt_disciplinas_cadastradas) {
+  int contador = 0;
+
+  printf("\n///       LISTAR DISCIPLINAS       ///\n");
+
+  for (int i = 0; i < QTD_DISCIPLINAS; i++) {
+    if (lista_disciplinas[i].preenchido == 1) {
+      printf("\n-----------------------------------\n");
+      printf("Codigo: %d\n", lista_disciplinas[i].codigo);
+      printf("Nome: %s\n", lista_disciplinas[i].nome);
+      printf("Semestre: %d\n", lista_disciplinas[i].semestre);
+      printf("Matricula do professor responsavel: %d\n",
+             lista_disciplinas[i].matriculaProfessor);
+
+      contador++;
+    }
+  }
+
+  if (contador == 0) {
+    printf("\nNenhuma disciplina cadastrada.\n");
+  }
+
+  printf("\n-----------------------------------\n");
+}
+
+void RelatorioUmaDisciplina(DISCIPLINA lista_disciplinas[],
+                            ALUNO lista_alunos[],
+                            int qnt_disciplinas_cadastradas,
+                            int qnt_alunos_cadastrados) {
+  int codigo;
+  int indice_disciplina = -1;
+
+  printf("\n///   CONSULTAR UMA DISCIPLINA   ///\n");
+  printf("Digite o codigo da disciplina: ");
+  scanf("%d", &codigo);
+
+  for (int i = 0; i < QTD_DISCIPLINAS; i++) {
+    if (lista_disciplinas[i].preenchido == 1 &&
+        lista_disciplinas[i].codigo == codigo) {
+      indice_disciplina = i;
+      break;
+    }
+  }
+
+  if (indice_disciplina == -1) {
+    printf("\nDisciplina nao encontrada.\n");
+    return;
+  }
+
+  DISCIPLINA disciplina = lista_disciplinas[indice_disciplina];
+
+  printf("\n-----------------------------------\n");
+  printf("Codigo: %d\n", disciplina.codigo);
+  printf("Nome: %s\n", disciplina.nome);
+  printf("Semestre: %d\n", disciplina.semestre);
+  printf("Matricula do professor responsavel: %d\n",
+         disciplina.matriculaProfessor);
+
+  printf("\nAlunos matriculados:\n");
+
+  if (disciplina.qtd_alunos_matriculados == 0) {
+    printf("Nenhum aluno matriculado.\n");
+  } else {
+    for (int i = 0; i < disciplina.qtd_alunos_matriculados; i++) {
+      int matricula = disciplina.matriculasAlunos[i];
+
+      for (int j = 0; j < QNT_ALUNOS; j++) {
+        if (lista_alunos[j].preenchido == 1 &&
+            lista_alunos[j].matricula == matricula) {
+          printf("- Matricula: %d | Nome: %s\n", lista_alunos[j].matricula,
+                 lista_alunos[j].nome);
+
+          break;
+        }
+      }
+    }
+  }
+
+  printf("-----------------------------------\n");
+}
+
 void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[], ALUNO lista_alunos[],
                       PROFESSOR lista_professores[],
                       int* qnt_disciplinas_cadastradas, int* codigoDisciplina) {

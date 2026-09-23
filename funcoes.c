@@ -37,16 +37,9 @@ void MenuListas() {
   printf("| 1 - listar Alunos                      |\n");
   printf("| 2 - Listar Professores                 |\n");
   printf("| 3 - Listar Disciplinas                 |\n");
-  printf(
-      "| 4 - Lista de pessoas (professor/aluno) |\n");  // a partir de uma
-                                                        // string de busca. O
-                                                        // usuário informa no
-                                                        // mínimo três letras e
-                                                        // deve ser listado
-                                                        // todas as pessoas que
-                                                        // contem essas três
-                                                        // letras no nome.
-  printf("| 5 - Aniversariantes do mes             |\n");
+  printf("| 4 - Consultar uma disciplina           ||\n");
+  printf("| 5 - Lista de pessoas (professor/aluno) |\n");
+  printf("| 6 - Aniversariantes do mes             |\n");
   printf("| 0 - Voltar                             |\n");
   printf("|________________________________________|\n");
 }
@@ -116,14 +109,19 @@ void ExecutarVerRelatorios(ALUNO* lista_alunos, PROFESSOR* lista_professores,
         RelatorioProfessores(lista_professores, qnt_professores_cadastrados);
         break;
       case 3:
-        // RelatorioDisciplinas();
+        RelatorioDisciplinas(lista_disciplinas, qnt_disciplinas_cadastradas);
         break;
-      case 4:
+      case 4:  // relatorio uma disciplina
+        RelatorioUmaDisciplina(lista_disciplinas, lista_alunos,
+                               qnt_disciplinas_cadastradas,
+                               qnt_alunos_cadastrados);
+        break;
+      case 5:  // relatorio pessoas
         RelatorioPessoas(lista_professores, qnt_professores_cadastrados,
                          lista_alunos, qnt_alunos_cadastrados);
         break;
-      case 5:
-        // RelatorioAniversariantes();
+      case 6:
+        // relatorio aniversariantes do mes
         break;
       case 0:
         printf("\n///               VOLTAR              ///\n");
