@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "aluno.h"
 #include "professor.h"
 #include "disciplina.h"
@@ -118,7 +119,7 @@ void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, in
                 RelatorioPessoas(lista_professores, qnt_professores_cadastrados, lista_alunos, qnt_alunos_cadastrados);
                 break;
             case 5 :
-                //RelatorioAniversariantes();
+                RelatorioAniversariantes(lista_alunos,lista_professores,qnt_alunos_cadastrados, qnt_professores_cadastrados);
                 break;
             case 0 :
                 printf("\n///               VOLTAR              ///\n");
@@ -186,7 +187,30 @@ void RelatorioPessoas(PROFESSOR *lista_professores, int qnt_professores_cadastra
 
 }
 
-void RelatorioAniversariantes(){
-    printf("\n///   LISTAR ANIVERSARIANTES   ///\n");
+void RelatorioAniversariantes(ALUNO *lista_alunos, PROFESSOR *lista_professores, int qnt_alunos_cadastrados, int qnt_professores_cadastrados){
+   printf("\n///   LISTAR ANIVERSARIANTES   ///\n\n");
+    time_t agora;
+    struct tm *data;
+    time(&agora);
+    data = localtime(&agora); // pelo que eu vi isso define a data atual
 
+    int mesAtual = data->tm_mon + 1; // janeiro = 0 ent pra ser mês 1 precisa adicionar 1
+   
+    int encontrou = 0;
+
+    for(int i = 0; i < qnt_alunos_cadastrados; i++){
+        if(lista_alunos[i].dataNascimento.mes == mesAtual){
+            printf("%s\n",lista_alunos[i].nome);
+             encontrou = 1;
+        }
+    }
+      for(int i = 0; i < qnt_professores_cadastrados; i++){
+        if(lista_professores[i].dataNascimento.mes == mesAtual){
+            printf("%s\n",lista_professores[i].nome);
+             encontrou = 1;
+        }
+    }
+    if(encontrou == 0){
+        printf("nenhum aniversariante este mês.\n");
+    }
 }
