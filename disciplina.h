@@ -42,4 +42,9 @@ void ExcluirAlunoDisciplina(DISCIPLINA lista_disciplinas[],
                             int qnt_disciplinas_cadastradas,
                             int qnt_alunos_cadastrados);
 
+void RelatorioDisciplinasMaisDe40Vagas(DISCIPLINA lista_disciplinas[],
+                                       PROFESSOR lista_professores[],
+                                       int qnt_disciplinas_cadastradas,
+                                       int qnt_professores_cadastrados);
+
 #endif

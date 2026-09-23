@@ -406,3 +406,48 @@ void ExcluirAlunoDisciplina(DISCIPLINA lista_disciplinas[],
 
   printf("\nAluno removido da disciplina com sucesso!\n");
 }
+
+void RelatorioDisciplinasMaisDe40Vagas(DISCIPLINA lista_disciplinas[],
+                                       PROFESSOR lista_professores[],
+                                       int qnt_disciplinas_cadastradas,
+                                       int qnt_professores_cadastrados) {
+  int encontrou = 0;
+
+  printf("\n/// DISCIPLINAS COM MAIS DE 40 ALUNOS ///\n");
+
+  for (int i = 0; i < qnt_disciplinas_cadastradas; i++) {
+    if (lista_disciplinas[i].preenchido == 1 &&
+        lista_disciplinas[i].qtd_alunos_matriculados > 40) {
+      printf("\n-----------------------------------\n");
+      printf("Codigo: %d\n", lista_disciplinas[i].codigo);
+      printf("Nome: %s\n", lista_disciplinas[i].nome);
+      printf("Semestre: %d\n", lista_disciplinas[i].semestre);
+      printf("Quantidade de alunos: %d\n",
+             lista_disciplinas[i].qtd_alunos_matriculados);
+
+      int encontrouProfessor = 0;
+
+      for (int j = 0; j < qnt_professores_cadastrados; j++) {
+        if (lista_professores[j].preenchido == 1 &&
+            lista_professores[j].matricula ==
+                lista_disciplinas[i].matriculaProfessor) {
+          printf("Professor: %s\n", lista_professores[j].nome);
+          encontrouProfessor = 1;
+          break;
+        }
+      }
+
+      if (!encontrouProfessor) {
+        printf("Professor: Nao encontrado\n");
+      }
+
+      encontrou = 1;
+    }
+  }
+
+  if (!encontrou) {
+    printf("\nNenhuma disciplina ultrapassa 40 vagas.\n");
+  }
+
+  printf("-----------------------------------\n");
+}

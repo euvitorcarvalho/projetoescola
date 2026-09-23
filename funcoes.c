@@ -43,6 +43,7 @@ void MenuListas() {
   printf("| 7 - Aniversariantes do mes             |\n");
   printf("| 8 - Matricular aluno em disciplina     |\n");
   printf("| 9 - Excluir aluno de disciplina        |\n");
+  printf("| 10 - Disciplinas com mais de 40 alunos |\n");
   printf("| 0 - Voltar                             |\n");
   printf("|________________________________________|\n");
 }
@@ -144,6 +145,12 @@ void ExecutarVerRelatorios(ALUNO* lista_alunos, PROFESSOR* lista_professores,
         ExcluirAlunoDisciplina(lista_disciplinas, lista_alunos,
                                qnt_disciplinas_cadastradas,
                                qnt_alunos_cadastrados);
+        break;
+
+      case 10:
+        RelatorioDisciplinasMaisDe40Vagas(lista_disciplinas, lista_professores,
+                                          qnt_disciplinas_cadastradas,
+                                          qnt_professores_cadastrados);
         break;
 
       case 0:
