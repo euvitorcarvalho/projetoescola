@@ -19,11 +19,11 @@ void imprimirDadosAluno(ALUNO a); // exibe informações do aluno
 
 void listarAlunos(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
-int LerDadosAluno(ALUNO *aluno); // Lê e valida os dados do aluno
+ALUNO LerDadosAluno(); // Lê e valida os dados do aluno. Retorna o struct aluno com os dados lidos.
 
 void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, int *matriculaAluno);
 
-int ExecutarAtualizarAluno(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
+void ExecutarAtualizarAluno(ALUNO lista_alunos[], int qnt_alunos_cadastrados);
 
 void ExecutarExcluirAluno(ALUNO lista_alunos[], int *qnt_alunos_cadastrados);
 

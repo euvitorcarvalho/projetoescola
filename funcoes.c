@@ -9,7 +9,7 @@
 
 //MENU INICIAL
 void MenuInicio(){
-    printf("\n\n///          PROJETO ESCOLA         ///\n");
+    printf("\n///           PROJETO ESCOLA           ///\n");
 
     printf("__________________ MENU __________________\n\n");
     printf("| 1 - Alunos                             |\n");
@@ -22,20 +22,19 @@ void MenuInicio(){
 }
 // MENU DO CRUD (CADASTRAR, ATUALIZAR, EXCLUIR)
 void Menu_CRUD(){
-    printf("\n\n///          CADASTRAR        ///\n");
 
     printf("__________________ MENU __________________\n\n");
     printf("| 1 - Cadastrar                          |\n");
     printf("| 2 - Atualizar Dados                    |\n");
     printf("| 3 - Excluir                            |\n");
-    printf("| 0 - Sair                               |\n");
+    printf("| 0 - Voltar                             |\n");
     printf("|________________________________________|\n");
 
 }
 
 // MENU DAS LISTAS
 void MenuListas(){
-    printf("\n\n///           VER RELATÓRIOS         ///\n");
+    printf("\n///           VER RELATORIOS           ///\n");
 
     printf("__________________ LISTAS ________________\n\n");
     printf("| 1 - listar Alunos                      |\n");
@@ -49,7 +48,6 @@ void MenuListas(){
 
 // MENU DE ORDENAÇÃO DAS LISTAGENS
 void MenuListasFiltros(){
-    printf("\n\n///           VER RELATÓRIOS         ///\n");
 
     printf("\n________________ FILTROS _______________\n\n");
     printf("| 1 - Ordenar por matricula              |\n");
@@ -101,7 +99,7 @@ void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, in
     do{
         MenuListas();
 
-        printf("\nEscolha uma opção: ");
+        printf("\nEscolha uma opcao: ");
         scanf("%d",&listagem);
         getchar();
 
@@ -123,10 +121,10 @@ void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, in
                 //RelatorioAniversariantes();
                 break;
             case 0 :
-                printf("\n///  VOLTAR  ///\n");
+                printf("\n///               VOLTAR              ///\n");
                 break;
             default:
-                printf("\n///  Erro - escolha uma opção valida  ///\n");
+                printf("\n///  Erro - escolha uma opcao valida  ///\n");
                 break;
         }
 
@@ -164,7 +162,7 @@ void buscar_nome_professores(char nome[], PROFESSOR *lista, int qnt){
 
 void RelatorioPessoas(PROFESSOR *lista_professores, int qnt_professores_cadastrados, ALUNO *lista_alunos, int qnt_alunos_cadastrados){
     char busca[100];
-    printf("\n\n///      LISTAR PESSOAS       ///\n\n");
+    printf("\n///      LISTAR PESSOAS       ///\n");
     do{
         printf("\nBUSCAR\n");
 
@@ -189,6 +187,6 @@ void RelatorioPessoas(PROFESSOR *lista_professores, int qnt_professores_cadastra
 }
 
 void RelatorioAniversariantes(){
-    printf("\n\n///   LISTAR ANIVERSARIANTES   ///\n\n");
+    printf("\n///   LISTAR ANIVERSARIANTES   ///\n");
 
 }
