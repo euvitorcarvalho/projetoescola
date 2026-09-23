@@ -32,4 +32,14 @@ void RelatorioUmaDisciplina(DISCIPLINA lista_disciplinas[],
 void RelatorioAlunosMenosTresDisciplinas(ALUNO lista_alunos[],
                                          int qnt_alunos_cadastrados);
 
+void MatricularAlunoDisciplina(DISCIPLINA lista_disciplinas[],
+                               ALUNO lista_alunos[],
+                               int qnt_disciplinas_cadastradas,
+                               int qnt_alunos_cadastrados);
+
+void ExcluirAlunoDisciplina(DISCIPLINA lista_disciplinas[],
+                            ALUNO lista_alunos[],
+                            int qnt_disciplinas_cadastradas,
+                            int qnt_alunos_cadastrados);
+
 #endif

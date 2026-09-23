@@ -41,6 +41,8 @@ void MenuListas() {
   printf("| 5 - Alunos em menos de 3 disciplinas   |\n");
   printf("| 6 - Lista de pessoas (professor/aluno) |\n");
   printf("| 7 - Aniversariantes do mes             |\n");
+  printf("| 8 - Matricular aluno em disciplina     |\n");
+  printf("| 9 - Excluir aluno de disciplina        |\n");
   printf("| 0 - Voltar                             |\n");
   printf("|________________________________________|\n");
 }
@@ -131,6 +133,19 @@ void ExecutarVerRelatorios(ALUNO* lista_alunos, PROFESSOR* lista_professores,
       case 7:
         // relatorio aniversariantes do mes
         break;
+
+      case 8:
+        MatricularAlunoDisciplina(lista_disciplinas, lista_alunos,
+                                  qnt_disciplinas_cadastradas,
+                                  qnt_alunos_cadastrados);
+        break;
+
+      case 9:
+        ExcluirAlunoDisciplina(lista_disciplinas, lista_alunos,
+                               qnt_disciplinas_cadastradas,
+                               qnt_alunos_cadastrados);
+        break;
+
       case 0:
         printf("\n///               VOLTAR              ///\n");
         break;

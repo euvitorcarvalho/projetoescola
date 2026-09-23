@@ -253,3 +253,156 @@ void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[], ALUNO lista_alunos[],
     }
   } while (opcao != 0);
 }
+
+void MatricularAlunoDisciplina(DISCIPLINA lista_disciplinas[],
+                               ALUNO lista_alunos[],
+                               int qnt_disciplinas_cadastradas,
+                               int qnt_alunos_cadastrados) {
+  int codigoDisciplina;
+  int matriculaAluno;
+
+  printf("\nDigite o codigo da disciplina: ");
+  scanf("%d", &codigoDisciplina);
+
+  printf("Digite a matricula do aluno: ");
+  scanf("%d", &matriculaAluno);
+
+  int indiceDisciplina = -1;
+  int indiceAluno = -1;
+
+  // Busca a disciplina
+  for (int i = 0; i < qnt_disciplinas_cadastradas; i++) {
+    if (lista_disciplinas[i].preenchido == 1 &&
+        lista_disciplinas[i].codigo == codigoDisciplina) {
+      indiceDisciplina = i;
+      break;
+    }
+  }
+
+  // Busca o aluno
+  for (int i = 0; i < qnt_alunos_cadastrados; i++) {
+    if (lista_alunos[i].preenchido == 1 &&
+        lista_alunos[i].matricula == matriculaAluno) {
+      indiceAluno = i;
+      break;
+    }
+  }
+
+  if (indiceDisciplina == -1) {
+    printf("\nDisciplina nao encontrada.\n");
+    return;
+  }
+
+  if (indiceAluno == -1) {
+    printf("\nAluno nao encontrado.\n");
+    return;
+  }
+
+  if (lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados >=
+      MAX_VAGAS) {
+    printf("\nA disciplina esta lotada.\n");
+    return;
+  }
+
+  // Verifica se o aluno ja esta matriculado
+  for (int i = 0;
+       i < lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados; i++) {
+    if (lista_disciplinas[indiceDisciplina].matriculasAlunos[i] ==
+        matriculaAluno) {
+      printf("\nO aluno ja esta matriculado nessa disciplina.\n");
+      return;
+    }
+  }
+
+  // Registra o aluno na disciplina
+  int posicao = lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados;
+
+  lista_disciplinas[indiceDisciplina].matriculasAlunos[posicao] =
+      matriculaAluno;
+
+  lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados++;
+
+  // Atualiza a quantidade de disciplinas do aluno
+  lista_alunos[indiceAluno].contDisciplinas++;
+
+  printf("\nAluno matriculado com sucesso!\n");
+}
+
+void ExcluirAlunoDisciplina(DISCIPLINA lista_disciplinas[],
+                            ALUNO lista_alunos[],
+                            int qnt_disciplinas_cadastradas,
+                            int qnt_alunos_cadastrados) {
+  int codigoDisciplina;
+  int matriculaAluno;
+
+  printf("\nDigite o codigo da disciplina: ");
+  scanf("%d", &codigoDisciplina);
+
+  printf("Digite a matricula do aluno: ");
+  scanf("%d", &matriculaAluno);
+
+  int indiceDisciplina = -1;
+  int indiceAluno = -1;
+
+  // Busca a disciplina
+  for (int i = 0; i < qnt_disciplinas_cadastradas; i++) {
+    if (lista_disciplinas[i].preenchido == 1 &&
+        lista_disciplinas[i].codigo == codigoDisciplina) {
+      indiceDisciplina = i;
+      break;
+    }
+  }
+
+  // Busca o aluno
+  for (int i = 0; i < qnt_alunos_cadastrados; i++) {
+    if (lista_alunos[i].preenchido == 1 &&
+        lista_alunos[i].matricula == matriculaAluno) {
+      indiceAluno = i;
+      break;
+    }
+  }
+
+  if (indiceDisciplina == -1) {
+    printf("\nDisciplina nao encontrada.\n");
+    return;
+  }
+
+  if (indiceAluno == -1) {
+    printf("\nAluno nao encontrado.\n");
+    return;
+  }
+
+  int posicaoAluno = -1;
+
+  // Procura o aluno dentro da disciplina
+  for (int i = 0;
+       i < lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados; i++) {
+    if (lista_disciplinas[indiceDisciplina].matriculasAlunos[i] ==
+        matriculaAluno) {
+      posicaoAluno = i;
+      break;
+    }
+  }
+
+  if (posicaoAluno == -1) {
+    printf("\nO aluno nao esta matriculado nessa disciplina.\n");
+    return;
+  }
+
+  // Desloca os alunos seguintes uma posição para trás
+  for (int i = posicaoAluno;
+       i < lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados - 1;
+       i++) {
+    lista_disciplinas[indiceDisciplina].matriculasAlunos[i] =
+        lista_disciplinas[indiceDisciplina].matriculasAlunos[i + 1];
+  }
+
+  lista_disciplinas[indiceDisciplina].qtd_alunos_matriculados--;
+
+  // Atualiza o contador do aluno
+  if (lista_alunos[indiceAluno].contDisciplinas > 0) {
+    lista_alunos[indiceAluno].contDisciplinas--;
+  }
+
+  printf("\nAluno removido da disciplina com sucesso!\n");
+}
