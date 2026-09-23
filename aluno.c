@@ -52,6 +52,11 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
         printf("\n///       Cadastrando aluno - %d.     ///\n", *qnt_alunos_cadastrados + 1);
 
         novo_aluno = LerDadosAluno(); // Lê dados do aluno
+        (*matriculaAluno)++;
+        novo_aluno.matricula = *matriculaAluno; // define a matricula
+
+        printf("\n/// Confira os dados: ///\n");
+        imprimirDadosAluno(novo_aluno);
 
         char salvar[10];
         do{
@@ -64,12 +69,10 @@ void ExecutarCadastroAlunos(ALUNO lista_alunos[], int *qnt_alunos_cadastrados, i
                 case 1:
                     lista_alunos[indice] = novo_aluno; // salva aluno na lista
 
-                    (*matriculaAluno)++;
-                    lista_alunos[indice].matricula = *matriculaAluno; // define a matricula
                     (*qnt_alunos_cadastrados)++; // incrementa a qnt de alunos cadastrados
 
                     printf("\n///           Cadastro Salvo!          ///\n");
-                    break;; // sucesso
+                    break; // sucesso
                     
                 case 2:
                     printf("\n///   Cadastro cancelado. voltando...  ///\n");
@@ -134,6 +137,11 @@ void ExecutarAtualizarAluno(ALUNO lista[], int qnt){
         
         //Lê os novos dados do aluno
         novos_dados = LerDadosAluno();
+        novos_dados.matricula = matricula; // repoe a matricula que some ao ler de novo
+
+        printf("\n/// Confira os dados: ///\n");
+        imprimirDadosAluno(novos_dados);
+
 
         char salvar[10];
         do{
@@ -144,8 +152,8 @@ void ExecutarAtualizarAluno(ALUNO lista[], int qnt){
 
             switch(opcao){
                 case 1: 
+                    
                     lista[indice] = novos_dados;
-                    lista[indice].matricula = matricula;
                     printf("\n///  Dados atualizados com sucesso!  ///\n"); 
                 return; //sucesso
                     
@@ -195,7 +203,7 @@ void ExecutarExcluirAluno(ALUNO lista[], int *qnt_alunos_cadastrados){
 
     char op[10];
     do{
-        printf("\nDeseja excluir %s ? (s/n)", lista[indice].nome);
+        printf("\nDeseja excluir %s ? (s/n): ", lista[indice].nome);
         ler_str(op, sizeof(op));
 
         int opcao = validar_opcao(op);
