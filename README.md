@@ -87,7 +87,7 @@ flowchart LR
   - Listar Professores por sexo ✅
   - Listar Professores ordenados por Nome ✅
   - Listar Professores ordenados por data de nascimento ✅
-  - Aniversariantes do mês 🔴
+  - Aniversariantes do mês 🟡
   - Busca de pessoa por pedaço do nome (mínimo 3 letras) 🟡
   - Alunos matriculados em menos de 3 disciplinas 🔴
   - Disciplinas que extrapolam 40 vagas 🔴
