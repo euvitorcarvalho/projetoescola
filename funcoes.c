@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "aluno.h"
 #include "disciplina.h"
@@ -90,6 +91,44 @@ DATA DiaMesAno(int num) {  // recebe um numero inteiro no formato ddmmaaaa e
   return data;
 }
 
+//VER RELATORIOS
+void ExecutarVerRelatorios(ALUNO *lista_alunos, PROFESSOR *lista_professores, int qnt_alunos_cadastrados, int qnt_professores_cadastrados){
+
+    int listagem = -1;
+
+    do{
+        MenuListas();
+
+        printf("\nEscolha uma opcao: ");
+        scanf("%d",&listagem);
+        getchar();
+
+        switch (listagem)
+        {
+            case 1 :
+                RelatorioAlunos(lista_alunos, qnt_alunos_cadastrados);
+                break;
+            case 2 :
+                RelatorioProfessores(lista_professores, qnt_professores_cadastrados);
+                break;
+            case 3 :
+                //RelatorioDisciplinas();
+                break;
+            case 4 :
+                RelatorioPessoas(lista_professores, qnt_professores_cadastrados, lista_alunos, qnt_alunos_cadastrados);
+                break;
+            case 5 :
+                RelatorioAniversariantes(lista_alunos,lista_professores,qnt_alunos_cadastrados, qnt_professores_cadastrados);
+                break;
+            case 0 :
+                printf("\n///               VOLTAR              ///\n");
+                break;
+            default:
+                printf("\n///  Erro - escolha uma opcao valida  ///\n");
+                break;
+        }
+
+    }while(listagem != 0);
 // VER RELATORIOS
 void ExecutarVerRelatorios(ALUNO* lista_alunos, PROFESSOR* lista_professores,
                            DISCIPLINA* lista_disciplinas,
@@ -219,6 +258,30 @@ void RelatorioPessoas(PROFESSOR* lista_professores,
   printf("\n///////////////////////////////////\n");
 }
 
-void RelatorioAniversariantes() {
-  printf("\n///   LISTAR ANIVERSARIANTES   ///\n");
+void RelatorioAniversariantes(ALUNO *lista_alunos, PROFESSOR *lista_professores, int qnt_alunos_cadastrados, int qnt_professores_cadastrados){
+   printf("\n///   LISTAR ANIVERSARIANTES   ///\n\n");
+    time_t agora;
+    struct tm *data;
+    time(&agora);
+    data = localtime(&agora); // pelo que eu vi isso define a data atual
+
+    int mesAtual = data->tm_mon + 1; // janeiro = 0 ent pra ser mês 1 precisa adicionar 1
+   
+    int encontrou = 0;
+
+    for(int i = 0; i < qnt_alunos_cadastrados; i++){
+        if(lista_alunos[i].dataNascimento.mes == mesAtual){
+            printf("%s\n",lista_alunos[i].nome);
+             encontrou = 1;
+        }
+    }
+      for(int i = 0; i < qnt_professores_cadastrados; i++){
+        if(lista_professores[i].dataNascimento.mes == mesAtual){
+            printf("%s\n",lista_professores[i].nome);
+             encontrou = 1;
+        }
+    }
+    if(encontrou == 0){
+        printf("nenhum aniversariante este mês.\n");
+    }
 }
