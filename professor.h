@@ -20,7 +20,7 @@ typedef struct PROFESSOR{
 
 void RelatorioProfessores(PROFESSOR lista_professores[], int qnt_professores_cadastrados);
 
-int LerDadosProfessor(PROFESSOR *professor); // Recebe um endereço de um struct PROFESSOR para preencher os dados do professor
+PROFESSOR LerDadosProfessor(); // Recebe um endereço de um struct PROFESSOR para preencher os dados do professor
 
 void imprimirDadosProfessor(PROFESSOR p);
 
