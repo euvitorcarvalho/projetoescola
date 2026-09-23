@@ -87,6 +87,31 @@ void RelatorioUmaDisciplina(DISCIPLINA lista_disciplinas[],
   printf("-----------------------------------\n");
 }
 
+void RelatorioAlunosMenosTresDisciplinas(ALUNO lista_alunos[],
+                                         int qnt_alunos_cadastrados) {
+  int contador = 0;
+
+  printf("\n/// ALUNOS EM MENOS DE 3 DISCIPLINAS ///\n");
+
+  for (int i = 0; i < QNT_ALUNOS; i++) {
+    if (lista_alunos[i].preenchido == 1 &&
+        lista_alunos[i].contDisciplinas < 3) {
+      printf("\n-----------------------------------\n");
+      printf("Matricula: %d\n", lista_alunos[i].matricula);
+      printf("Nome: %s\n", lista_alunos[i].nome);
+      printf("Disciplinas matriculadas: %d\n", lista_alunos[i].contDisciplinas);
+
+      contador++;
+    }
+  }
+
+  if (contador == 0) {
+    printf("\nNenhum aluno encontrado.\n");
+  }
+
+  printf("\n-----------------------------------\n");
+}
+
 void CRUD_Disciplinas(DISCIPLINA lista_disciplinas[], ALUNO lista_alunos[],
                       PROFESSOR lista_professores[],
                       int* qnt_disciplinas_cadastradas, int* codigoDisciplina) {

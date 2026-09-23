@@ -34,12 +34,13 @@ void MenuListas() {
   printf("\n///           VER RELATORIOS           ///\n");
 
   printf("__________________ LISTAS ________________\n\n");
-  printf("| 1 - listar Alunos                      |\n");
+  printf("| 1 - Listar Alunos                      |\n");
   printf("| 2 - Listar Professores                 |\n");
   printf("| 3 - Listar Disciplinas                 |\n");
   printf("| 4 - Consultar uma disciplina           ||\n");
-  printf("| 5 - Lista de pessoas (professor/aluno) |\n");
-  printf("| 6 - Aniversariantes do mes             |\n");
+  printf("| 5 - Alunos em menos de 3 disciplinas   |\n");
+  printf("| 6 - Lista de pessoas (professor/aluno) |\n");
+  printf("| 7 - Aniversariantes do mes             |\n");
   printf("| 0 - Voltar                             |\n");
   printf("|________________________________________|\n");
 }
@@ -111,16 +112,23 @@ void ExecutarVerRelatorios(ALUNO* lista_alunos, PROFESSOR* lista_professores,
       case 3:
         RelatorioDisciplinas(lista_disciplinas, qnt_disciplinas_cadastradas);
         break;
-      case 4:  // relatorio uma disciplina
+      case 4:
         RelatorioUmaDisciplina(lista_disciplinas, lista_alunos,
                                qnt_disciplinas_cadastradas,
                                qnt_alunos_cadastrados);
         break;
-      case 5:  // relatorio pessoas
+
+      case 5:
+        RelatorioAlunosMenosTresDisciplinas(lista_alunos,
+                                            qnt_alunos_cadastrados);
+        break;
+
+      case 6:
         RelatorioPessoas(lista_professores, qnt_professores_cadastrados,
                          lista_alunos, qnt_alunos_cadastrados);
         break;
-      case 6:
+
+      case 7:
         // relatorio aniversariantes do mes
         break;
       case 0:
