@@ -139,7 +139,10 @@ void ExecutarAtualizarAluno(ALUNO lista[], int qnt){
         novos_dados = LerDadosAluno();
         novos_dados.matricula = matricula; // repoe a matricula que some ao ler de novo
 
-        printf("\n/// Confira os dados: ///\n");
+        printf("\nConfira os dados:\n");
+        printf("\n----- Antes -----\n");
+        imprimirDadosAluno(lista[indice]);
+        printf("\n----- Depois -----\n");
         imprimirDadosAluno(novos_dados);
 
 
