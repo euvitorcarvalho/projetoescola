@@ -34,7 +34,7 @@ void RelatorioPessoas(PROFESSOR* lista_professores,
                       int qnt_professores_cadastrados, ALUNO* lista_alunos,
                       int qnt_alunos_cadastrados);
 
-void RelatorioAniversariantes();  // Em desenvolvimento
+void RelatorioAniversariantes(ALUNO *lista_alunos, PROFESSOR *lista_professores, int qnt_alunos_cadastrados, int qnt_professores_cadastrados);
 
 // LEITURA
 void ler_str(char str[], int tamanho);
